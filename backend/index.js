@@ -19,6 +19,7 @@ app.use(bodyParser.json())
 
 app.use('/api/applicant', applicantRoute)
 app.use("/api/college", collegeRoute);
+// app.use("/api/department", departmentRoute);
 
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500
