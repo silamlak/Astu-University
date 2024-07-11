@@ -36,6 +36,10 @@ const applicantForm = mongoose.Schema(
       enum: ["pending", "approved", "rejected"],
       default: "pending",
     },
+    confirmation_code: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

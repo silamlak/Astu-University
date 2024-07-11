@@ -11,15 +11,16 @@ import departmentRoute from './router/departmentRoute.js'
 
 const app = express()
 
+app.use('/files', express.static('files'))
 dotenv.config()
 app.use(express.urlencoded({extended: true}))
 app.use(express.json({extended: true}))
-const corsOptions = {
-  origin: "http://localhost:5173", // Update to match your frontend's origin
-  credentials: true, // Allow credentials (cookies) to be included
-};
+// const corsOptions = {
+//   origin: "http://localhost:5173", // Update to match your frontend's origin
+//   credentials: true, // Allow credentials (cookies) to be included
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(cookieParser())
 app.use(bodyParser.json())
 

@@ -45,6 +45,14 @@ const ApplicationListdetail = ({d, sIs}) => {
     }
   };
 
+    const viewFile = (file) => {
+      window.open(
+        `http://localhost:8000/files/${file}`,
+        "_blank",
+        "noreferrer"
+      );
+    };
+
   if (!d) return <div className="text-center text-white">Loading...</div>;
 
   return (
@@ -76,7 +84,9 @@ const ApplicationListdetail = ({d, sIs}) => {
           </div>
           <div>
             <p className="text-gray-600">Attached File</p>
-            <p className="text-lg">{d.attached_file}</p>
+            <button onClick={() => viewFile(d.attached_file)}>
+              <p className="text-lg">View File</p>
+            </button>
           </div>
           <div>
             <p className="text-gray-600">Department Status</p>

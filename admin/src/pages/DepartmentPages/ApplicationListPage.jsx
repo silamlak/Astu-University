@@ -75,6 +75,10 @@ const ApplicationListPage = () => {
     }
   };
 
+  const viewFile = (file) => {
+    window.open(`http://localhost:8000/files/${file}`, '_blank', 'noreferrer');
+  }
+
   return (
     <div className="container mx-auto mt-10">
       {isopen && <ApplicationDetail d={applicationDetail} sIs={setIsOpen} />}
@@ -86,7 +90,7 @@ const ApplicationListPage = () => {
               Department
             </th>
             <th className="py-2 px-4 border-b  text-start bg-gray-100">
-              Attached File
+              Phone Number
             </th>
             <th className="py-2 px-4 border-b  text-start bg-gray-100">
               Department Status
@@ -104,7 +108,7 @@ const ApplicationListPage = () => {
               </td>
               <td className="py-2 px-4 border-b">{application.department}</td>
               <td className="py-2 px-4 border-b">
-                {application.attached_file}
+                  {application.phone_no}
               </td>
               <td
                 className={`py-2 px-4 border-b ${getStatusColor(
