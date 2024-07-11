@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { API } from "../utility";
+import { API } from "../../utility";
 import { FaInfoCircle } from "react-icons/fa";
-import ApplicationDetail from "../components/ApplicationDetail";
+import ApplicationDetail from "../../components/DepartmentComponent/ApplicationListdetail";
 import { useDispatch, useSelector } from "react-redux";
-import { addApplication } from "../api/features/applicationList";
+import { addApplication } from "../../api/features/applicationList";
 
-const ApplicationTable = () => {
-  const dispatch = useDispatch()
+const ApplicationListPage = () => {
+  const dispatch = useDispatch();
   const apps = useSelector((state) => state.application.applications);
+  const auth = useSelector((state) => state.auth.user)
   const [applications, setApplications] = useState([]);
   const [applicationDetail, setApplicationDetail] = useState();
   const [isopen, setIsOpen] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API}/college/application`);
-        // setApplications(response.data);
-        dispatch(addApplication(response.data))
+        let response
+        if (auth) {
+          response = await axios.get(
+            `${API}/department/application/list`,
+            { headers: {
+              role: auth.role
+            } },
+            {
+              withCredentials: true,
+            }
+          );
+        }
+        dispatch(addApplication(response.data));
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -26,9 +37,9 @@ const ApplicationTable = () => {
     fetchData();
   }, []);
 
-    useEffect(() => {
-      setApplications(apps);
-    }, [apps]);
+  useEffect(() => {
+    setApplications(apps);
+  }, [apps]);
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -45,10 +56,20 @@ const ApplicationTable = () => {
 
   const applicationDetailView = async (id) => {
     try {
-      const res = await axios.get(`${API}/college/application/${id}`);
-    //   console.log(res.data);
-      setApplicationDetail(res.data)
-      setIsOpen(true)
+      const res = await axios.get(
+        `${API}/department/application/list/detail/${id}`,
+        {
+          headers: {
+            role: auth.role,
+          },
+        },
+        {
+          withCredentials: true,
+        }
+      );
+        console.log(res.data);
+      setApplicationDetail(res.data);
+      setIsOpen(true);
     } catch (error) {
       console.log(error);
     }
@@ -68,7 +89,7 @@ const ApplicationTable = () => {
               Attached File
             </th>
             <th className="py-2 px-4 border-b  text-start bg-gray-100">
-              College Status
+              Department Status
             </th>
             <th className="py-2 px-4 border-b  text-start bg-gray-100">
               Details
@@ -87,10 +108,10 @@ const ApplicationTable = () => {
               </td>
               <td
                 className={`py-2 px-4 border-b ${getStatusColor(
-                  application.college_status
+                  application.department_status
                 )}`}
               >
-                {application.college_status}
+                {application.department_status}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 <FaInfoCircle
@@ -106,4 +127,4 @@ const ApplicationTable = () => {
   );
 };
 
-export default ApplicationTable;
+export default ApplicationListPage;

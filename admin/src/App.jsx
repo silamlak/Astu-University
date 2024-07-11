@@ -7,6 +7,7 @@ import PublicRoute from './components/PublicRoute'
 import AddDepartmentOffice from './pages/AddDepartmentOffice'
 import AddDepartment from './pages/AddDepartment'
 import ApplicationTable from './pages/ApplicationTable'
+import ApplicationListPage from './pages/DepartmentPages/ApplicationListPage'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -30,6 +31,15 @@ const App = () => {
       element: (
         <ProtectedRoute
           element={ApplicationTable}
+          allowedRoles={["Department"]}
+        />
+      ),
+    },
+    {
+      path: "/d/application/list",
+      element: (
+        <ProtectedRoute
+          element={ApplicationListPage}
           allowedRoles={["Department"]}
         />
       ),

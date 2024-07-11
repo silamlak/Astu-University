@@ -29,18 +29,17 @@ export const signin = async (req, res, next) => {
         },
       },
       process.env.JWT,
-      { expiresIn: "10s" }
+      { expiresIn: "1m" }
     );
 
     const refreshToken = jwt.sign({ id: user._id }, process.env.JWT, {
       expiresIn: "1d",
     });
 
-    res.cookie('jwt', refreshToken, {
+    res.cookie('jwt', accessToken, {
         httpOnly: true,
         // secure: true,
         sameSite: 'none',
-        maxAge: 24 * 60 * 60 * 1000
     })
 
     res.json({accessToken})
@@ -66,7 +65,7 @@ export const refresh = async (req, res) => {
                     },
                   },
                   process.env.JWT,
-                  { expiresIn: "10s" }
+                  { expiresIn: "1m" }
                 );
                 res.json({accessToken})
     })

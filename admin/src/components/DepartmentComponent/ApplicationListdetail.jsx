@@ -1,29 +1,31 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { API } from "../utility";
-import { useDispatch } from "react-redux";
-import { updateState } from "../api/features/applicationList";
+import { API } from "../../utility";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "../../api/features/applicationList";
 
-const ApplicationDetail = ({ d, sIs }) => {
+const ApplicationListdetail = ({d, sIs}) => {
+  const auth = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleStatusChange = async (status) => {
     try {
       const res = await axios.put(
-        `${API}/college//application/status/${d._id}`,
+        `${API}/department/application/list/detail/status/${d?._id}`,
         {
           ...d,
-          college_status: status,
+          department_status: status,
         }
       );
       const dis = {
         id: d._id,
         status,
+        role: auth.role_based
       };
       dispatch(updateState(dis));
-      sIs(false)
+      sIs(false);
       // Redirect to the list or another appropriate page
     } catch (error) {
       console.error("Error updating status:", error);
@@ -83,12 +85,6 @@ const ApplicationDetail = ({ d, sIs }) => {
             </p>
           </div>
           <div>
-            <p className="text-gray-600">College Status</p>
-            <p className={`text-lg ${getStatusColor(d.college_status)}`}>
-              {d.college_status}
-            </p>
-          </div>
-          <div>
             <p className="text-gray-600">Applyed At</p>
             <p className="text-lg">{new Date(d.createdAt).toLocaleString()}</p>
           </div>
@@ -116,4 +112,4 @@ const ApplicationDetail = ({ d, sIs }) => {
   );
 };
 
-export default ApplicationDetail;
+export default ApplicationListdetail;

@@ -7,19 +7,25 @@ import cookieParser from 'cookie-parser'
 
 import applicantRoute from './router/applicantRoute.js'
 import collegeRoute from './router/collegeRoute.js'
+import departmentRoute from './router/departmentRoute.js'
 
 const app = express()
 
 dotenv.config()
 app.use(express.urlencoded({extended: true}))
 app.use(express.json({extended: true}))
-app.use(cors())
+const corsOptions = {
+  origin: "http://localhost:5173", // Update to match your frontend's origin
+  credentials: true, // Allow credentials (cookies) to be included
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser())
 app.use(bodyParser.json())
 
 app.use('/api/applicant', applicantRoute)
 app.use("/api/college", collegeRoute);
-// app.use("/api/department", departmentRoute);
+app.use("/api/department", departmentRoute);
 
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500
