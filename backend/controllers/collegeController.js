@@ -7,16 +7,13 @@ import collegeModel from '../models/collegeModel.js'
 import applicationModel from '../models/applicantFormModel.js'
 
 export const signin = async (req, res, next) => {
-  const { email, password, role } = req.body;
+  const { email, password } = req.body;
   try {
     console.log(req.body)
-    let user
 
-    if (role === "Department") {
-      user = await departmentOfficerModel.findOne({ email });
-    } else if (role === 'College' ) {
-      user = await collegeModel.findOne({ email });
-    }
+      let user =
+        (await departmentOfficerModel.findOne({ email })) ||
+        (await collegeModel.findOne({ email }));
 
     if (!user) return res.status(400).json({ message: "Invalid email" });
     if (password !== user.password)
@@ -25,7 +22,7 @@ export const signin = async (req, res, next) => {
       {
         user: {
           id: user._id,
-          role: user.department || ''
+          role: user?.department
         },
       },
       process.env.JWT,
@@ -36,11 +33,11 @@ export const signin = async (req, res, next) => {
       expiresIn: "1d",
     });
 
-    res.cookie('jwt', accessToken, {
-        httpOnly: true,
-        // secure: true,
-        sameSite: 'none',
-    })
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true,
+      // secure: true,
+      sameSite: "none",
+    });
 
     res.json({accessToken})
 

@@ -3,6 +3,6 @@ import { applyTransfer, checkTransfer } from '../controllers/applicantController
 const router = express.Router()
 
 router.post('/apply', applyTransfer)
-router.get('/check', checkTransfer)
+router.get('/check/:id', checkTransfer)
 
 export default router

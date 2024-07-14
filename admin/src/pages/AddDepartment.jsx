@@ -31,19 +31,19 @@ const AddDepartment = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto my-8 p-6 bg-white shadow-md rounded-md">
+    <div className="max-w-xl mx-auto my-8 p-6 bg-white border">
       <h2 className="text-xl font-semibold mb-4">Add Department</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
-            Name:
+            Department:
           </label>
           <input
             type="text"
             name="name"
             value={form.name}
             onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+            className="mt-1 block w-full px-3 py-2 border bg-slate-50 border-gray-300 rounded-lg focus:outline-none"
             required
           />
         </div>
@@ -57,7 +57,7 @@ const AddDepartment = () => {
             value={form.description}
             onChange={handleChange}
             rows="4"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+            className="mt-1 block w-full px-3 py-2 bg-slate-50 border border-gray-300 rounded-md focus:outline-none"
             required
           ></textarea>
         </div>
@@ -65,7 +65,7 @@ const AddDepartment = () => {
         <div className="mt-6">
           <button
             type="submit"
-            className="w-full bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
+            className="w-contain text-slate-950 focus:outline-none   py-2 px-4 border border-indigo-500 rounded-lg"
           >
             Add Department
           </button>

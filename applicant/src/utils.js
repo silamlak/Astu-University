@@ -1,1 +1,1 @@
-export const TITLE = 'ASTU'
+export const TITLE = 'ADDIS ABABA SCIENCE AND TECHNOLOGY'

@@ -12,7 +12,7 @@ const Signin = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
-    role: "",
+    // role: "",
   });
   console.log(auth);
   const setChanges = (e) => {
@@ -29,18 +29,33 @@ const Signin = () => {
         "http://localhost:8000/api/college/sign_in",
         form
       );
+      // console.log(response.data.accessToken);
       const accessToken = jwtDecode(response.data.accessToken);
-      const decodedToken = {
-        ...accessToken.user,
-        role_based: form.role,
-      };
+      let decodedToken;
+      console.log(accessToken.user.role);
+      if (accessToken.user.role) {
+        decodedToken = {
+          ...accessToken.user,
+          role_based: "Department",
+        };
+      } else {
+        decodedToken = {
+          ...accessToken.user,
+          role_based: "College",
+        };
+      }
+      // console.log(decodedToken)
+      // decodedToken = {
+      //   ...accessToken.user,
+      //   role_based: form.role,
+      // };
       dispatch(login(decodedToken));
       setForm({
-          email: "",
-          password: "",
-          role: "",
-        });
-       navigate("/");
+        email: "",
+        password: "",
+        // role: "",
+      });
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +96,7 @@ const Signin = () => {
               required
             />
           </div>
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label htmlFor="role" className="block text-gray-700">
               Role
             </label>
@@ -99,7 +114,7 @@ const Signin = () => {
               <option value="College">College</option>
               <option value="Department">Department</option>
             </select>
-          </div>
+          </div> */}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded focus:outline-none hover:bg-blue-600"

@@ -2,7 +2,14 @@
 export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        bb: ["Open Sans"],
+        rb: ["Roboto"],
+        title: ["Playwrite CU"],
+        titl: ["Libre Baskerville"],
+      },
+    },
   },
   plugins: [],
 };

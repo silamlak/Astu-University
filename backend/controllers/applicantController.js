@@ -58,9 +58,15 @@ export const applyTransfer = async (req, res, next) => {
   }
 };
 
-export const checkTransfer = (req, res, next) => {
+export const checkTransfer = async (req, res, next) => {
+  const {id} = req.params
+  console.log(id)
   try {
-    // Implement your check logic here
+    const application = await applicantFormModel.findOne({ confirmation_code: id });
+    if (!application) {
+      return res.status(404).json({message: 'not found'})
+    }
+    res.status(200).json(application)
   } catch (err) {
     next(err);
   }

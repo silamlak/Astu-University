@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { API } from "../utility";
+import { API } from "../../utility";
 import { useDispatch } from "react-redux";
-import { updateState } from "../api/features/applicationList";
+import { updateState } from "../../api/features/applicationList";
 
 const ApplicationDetail = ({ d, sIs }) => {
   const navigate = useNavigate();

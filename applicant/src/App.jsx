@@ -1,9 +1,10 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Dashboard from './Dashboard';
+import Apply from './Apply';
 import Layout from './component/Layout';
 import DashBoard from './pages/DashBoard';
 import CheckPage from './pages/CheckPage';
+import Confirmation from './pages/Confirmation';
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -16,11 +17,15 @@ const App = () => {
         },
         {
           path: "/apply",
-          element: <Dashboard />,
+          element: <Apply />,
         },
         {
           path: "/check",
           element: <CheckPage />,
+        },
+        {
+          path: "/confirmation",
+          element: <Confirmation />,
         },
         // Add more routes as needed
       ],

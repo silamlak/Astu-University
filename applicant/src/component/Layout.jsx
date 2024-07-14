@@ -1,13 +1,17 @@
 import React from 'react'
 import Navbar from './Navbar';
 import { Outlet } from "react-router-dom";
+import Footbar from './Footbar';
 
 const Layout = () => {
   return (
-    <div>
+    <div className="font-rb min-h-screen">
       <Navbar />
-      <div className="container mx-auto mt-4">
-        <Outlet />
+      <div>
+        <div className="mx-auto">
+          <Outlet />
+        </div>
+        <Footbar />
       </div>
     </div>
   );
