@@ -51,7 +51,7 @@ const Dashboard = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/applicant/apply",
+        "https://aastu-edu.onrender.com/api/applicant/apply",
         formData,
         {
           headers: {

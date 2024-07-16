@@ -19,7 +19,7 @@ const CheckPage = () => {
     try {
       // Replace the URL with your API endpoint
       const response = await axios.get(
-        `http://localhost:8000/api/applicant/check/${code}`
+        `https://aastu-edu.onrender.com/api/applicant/check/${code}`
       );
       setDetails(response.data);
       console.log(response.data);
