@@ -26,7 +26,9 @@ export const applicationSlice = createSlice({
               ...app,
               college_status: action.payload.status,
             }
-          } else if (action.payload.role === 'Department') {
+          } else if (action.payload.role === "Department") {
+            console.log("object");
+
             return {
               ...app,
               department_status: action.payload.status,

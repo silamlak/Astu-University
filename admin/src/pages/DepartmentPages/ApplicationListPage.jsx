@@ -62,7 +62,7 @@ const ApplicationListPage = () => {
         }
       };
 
-    const { data, isLoading, isSuccess } = useQuery({
+    const { data, isLoading, isSuccess,isError } = useQuery({
       queryKey: ["applications"],
       queryFn: fetchData,
     });
@@ -116,6 +116,12 @@ const ApplicationListPage = () => {
          <Loading />
        </div>
      );
+   if (isError)
+     return (
+       <div className="w-full text-red-400 flex justify-center">
+         Error Occured
+       </div>
+     );
 
   return (
     <div className="container mx-auto mt-6">
@@ -141,7 +147,7 @@ const ApplicationListPage = () => {
           </tr>
         </thead>
         <tbody>
-          {applications?.map((application, index) => (
+          {apps?.map((application, index) => (
             <tr
               key={index}
               className="hover:bg-gray-100 even:bg-[#f8f8f8] border-b transition-colors duration-200"

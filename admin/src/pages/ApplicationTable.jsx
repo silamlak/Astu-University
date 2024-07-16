@@ -39,7 +39,7 @@ const ApplicationTable = () => {
   //   fetchData();
   // }, []);
 
-  const { data, isLoading, isSuccess } = useQuery({
+  const { data, isLoading, isSuccess, isError } = useQuery({
     queryKey: ["applications"],
     queryFn: fetchData,
   });
@@ -73,6 +73,12 @@ const ApplicationTable = () => {
     }
   };
   if(isLoading) return <div className="w-full flex justify-center"><Loading /></div>
+     if (isError)
+       return (
+         <div className="w-full text-red-400 flex justify-center">
+           Error Occured
+         </div>
+       );
 
   return (
     <div className="container mx-auto mt-6 bg-gray-50 rounded-lg ">
