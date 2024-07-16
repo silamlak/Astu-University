@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { API } from "../utility";
+import { useMutation } from "@tanstack/react-query";
+import Loading from "../components/Loading";
+import toast from "react-hot-toast";
+
 
 const AddDepartmentOffice = () => {
   const [form, setForm] = useState({
@@ -18,11 +22,24 @@ const AddDepartmentOffice = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const addOfficer = async (e) => {
     try {
-      const res = await axios.post(`${API}/college/add/department_officer`, form); // Adjust API endpoint accordingly
-      console.log(res.data)
+      const res = await axios.post(
+        `${API}/college/add/department_officer`,
+        form
+      ); 
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      console.error("Error adding department office: ", error);
+      alert("Error adding department office. Please try again.");
+    }
+  };
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: () => addOfficer(form),
+    onSuccess: (data) => {
+      console.log(data);
       setForm({
         name: "",
         email: "",
@@ -30,20 +47,24 @@ const AddDepartmentOffice = () => {
         phone_no: "",
         department: "",
       });
-    } catch (error) {
-      console.error("Error adding department office: ", error);
-      alert("Error adding department office. Please try again.");
-    }
+      toast.success('New Department Officer Added')
+    },
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    mutate(form)
   };
 
   return (
-    <div className="max-w-xl
-     mx-auto my-8 p-6 bg-white border rounded-md">
-      <h2 className="text-xl font-semibold mb-4">Add Department Office</h2>
+    <div className="max-w-xl mx-auto font-bb my-8 p-6 bg-white shadow-lg rounded-md">
+      <h2 className="text-xl font-semibold mb-4 text-center">
+        Add Department Office
+      </h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
-            Name:
+            Name
           </label>
           <input
             type="text"
@@ -57,7 +78,7 @@ const AddDepartmentOffice = () => {
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
-            Email:
+            Email
           </label>
           <input
             type="email"
@@ -71,7 +92,7 @@ const AddDepartmentOffice = () => {
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
-            Password:
+            Password
           </label>
           <input
             type="password"
@@ -85,7 +106,7 @@ const AddDepartmentOffice = () => {
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
-            Phone Number:
+            Phone Number
           </label>
           <input
             type="text"
@@ -99,7 +120,7 @@ const AddDepartmentOffice = () => {
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
-            Department:
+            Department
           </label>
           <select
             name="department"
@@ -117,10 +138,12 @@ const AddDepartmentOffice = () => {
 
         <div className="mt-6">
           <button
+          disabled={isPending}
             type="submit"
-            className="w-contain text-slate-950 focus:outline-none   py-2 px-4 border border-indigo-500 rounded-lg"
+            className="w-contain flex gap-3 items-center text-white focus:outline-none  py-2 px-4 border bg-indigo-500 rounded-lg"
           >
-            Add Department Office
+            <p>Add Department Office</p>
+            {isPending && <Loading />}
           </button>
         </div>
       </form>

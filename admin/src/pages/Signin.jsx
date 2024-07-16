@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../api/features/auth";
 import { jwtDecode } from "jwt-decode";
+import { useMutation } from "@tanstack/react-query";
+import { FaEnvelope, FaLock } from "react-icons/fa";
+import Login from "../assets/images/login.svg";
+import Logo from "../assets/images/algo.png";
+import Loading from "../components/Loading";
 
 const Signin = () => {
   const auth = useSelector((state) => state.auth.user);
@@ -12,7 +17,6 @@ const Signin = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
-    // role: "",
   });
   console.log(auth);
   const setChanges = (e) => {
@@ -22,17 +26,24 @@ const Signin = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const loginFunc = async (form) => {
     try {
       const response = await axios.post(
         "http://localhost:8000/api/college/sign_in",
         form
       );
-      // console.log(response.data.accessToken);
-      const accessToken = jwtDecode(response.data.accessToken);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const { isPending, mutate, isError, error } = useMutation({
+    mutationFn: loginFunc,
+    onSuccess: (data) => {
+      const accessToken = jwtDecode(data.accessToken);
       let decodedToken;
-      console.log(accessToken.user.role);
+
       if (accessToken.user.role) {
         decodedToken = {
           ...accessToken.user,
@@ -44,82 +55,76 @@ const Signin = () => {
           role_based: "College",
         };
       }
-      // console.log(decodedToken)
-      // decodedToken = {
-      //   ...accessToken.user,
-      //   role_based: form.role,
-      // };
+
       dispatch(login(decodedToken));
+      localStorage.setItem("token", data.accessToken);
       setForm({
         email: "",
         password: "",
-        // role: "",
       });
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
+      navigate("/", { replace: true });
+    },
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    mutate(form);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
+    <div className="font-bb min-h-screen flex gap-12 items-center justify-center p-4">
+      {/* <img
+        src={Login}
+        className="w-[450px] h-[450px] max-lg:w-[380px] max-lg:h-[400px] max-md:hidden"
+      /> */}
+      <div className="p-8 rounded shadow-sm w-full border max-w-md">
+        <div className="w-full flex justify-center my-6">
+          <img src={Logo} className="w-28 h-20" />
+        </div>
+        <h2 className="text-2xl font-bold mb-6 text-center">Account Login</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+          <div className="mb-6">
             <label htmlFor="email" className="block text-gray-700">
               Email
             </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Enter email"
-              value={form.email}
-              onChange={setChanges}
-              className="w-full px-3 py-2 border rounded"
-              required
-            />
+            <div className="flex items-center border rounded-lg">
+              <FaEnvelope className="mx-2 text-gray-400" />
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter email"
+                value={form.email}
+                onChange={setChanges}
+                className="w-full rounded-lg px-1 bg-slate-50 py-2 border-none outline-none"
+                required
+              />
+            </div>
           </div>
-          <div className="mb-4">
+          <div className="mb-6">
             <label htmlFor="password" className="block text-gray-700">
               Password
             </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Enter password"
-              value={form.password}
-              onChange={setChanges}
-              className="w-full px-3 py-2 border rounded"
-              required
-            />
+            <div className="flex items-center border rounded-lg">
+              <FaLock className="mx-2 text-gray-400" />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter password"
+                value={form.password}
+                onChange={setChanges}
+                className="w-full rounded-lg px-1 bg-slate-50 py-2 border-none outline-none"
+                required
+              />
+            </div>
           </div>
-          {/* <div className="mb-4">
-            <label htmlFor="role" className="block text-gray-700">
-              Role
-            </label>
-            <select
-              name="role"
-              id="role"
-              value={form.role}
-              onChange={setChanges}
-              className="w-full px-3 py-2 border rounded"
-              required
-            >
-              <option value="" disabled>
-                select role
-              </option>
-              <option value="College">College</option>
-              <option value="Department">Department</option>
-            </select>
-          </div> */}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded focus:outline-none hover:bg-blue-600"
+            className="w-fit flex items-center gap-3 px-3 bg-blue-500 text-white py-2 transition duration-75 rounded-lg focus:outline-none hover:bg-blue-600"
           >
-            Submit
+            <p>Submit</p>
+            {isPending && <Loading />}
           </button>
         </form>
       </div>

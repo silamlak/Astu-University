@@ -2,10 +2,13 @@ import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { API } from "../../utility";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateState } from "../../api/features/applicationList";
+import Loading from "../Loading";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const ApplicationDetail = ({ d, sIs }) => {
+  const auth = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -21,14 +24,19 @@ const ApplicationDetail = ({ d, sIs }) => {
       const dis = {
         id: d._id,
         status,
+        role_based: auth.role_based,
       };
       dispatch(updateState(dis));
-      sIs(false)
+      sIs(false);
       // Redirect to the list or another appropriate page
     } catch (error) {
       console.error("Error updating status:", error);
     }
   };
+
+  // const {mutate} = useMutation({
+  //   mutationFn: get
+  // })
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -43,7 +51,12 @@ const ApplicationDetail = ({ d, sIs }) => {
     }
   };
 
-  if (!d) return <div className="text-center text-white">Loading...</div>;
+  if (!d)
+    return (
+      <div className="text-center text-white">
+        <Loading />
+      </div>
+    );
 
   return (
     <div className="fixed inset-0 bg-slate-600 bg-opacity-75 flex justify-center items-center p-6">

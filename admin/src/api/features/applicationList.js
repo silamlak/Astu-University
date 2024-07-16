@@ -18,8 +18,10 @@ export const applicationSlice = createSlice({
     },
     updateState: (state, action) => {
       state.applications = state.applications.map((app) => {
+        console.log(action.payload)
         if (app._id === action.payload.id) {
-          if (action.payload.role === 'College') {
+          if (action.payload.role_based === 'College') {
+            console.log('object')
             return {
               ...app,
               college_status: action.payload.status,
