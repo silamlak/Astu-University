@@ -103,7 +103,7 @@ const Dashboard = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:8000/api/applicant/apply",
+        "https://aastu-edu.onrender.com/api/applicant/apply",
         formData,
         {
           headers: {
@@ -140,9 +140,12 @@ const Dashboard = () => {
             className="w-[400px] h-[400px] max-md:hidden"
             alt="Form"
           />
-          <form onSubmit={handleSubmit} className="p-6 shadow-md bg-white rounded-xl">
+          <form
+            onSubmit={handleSubmit}
+            className="p-6 shadow-md bg-white rounded-xl"
+          >
             <div className="relative">
-              <h2 className="relative text-2xl text-center font-bold mb-12">
+              <h2 className="relative text-2xl dark:text-slate-950 text-center font-bold mb-12">
                 Application Form
               </h2>
               <img
@@ -165,7 +168,7 @@ const Dashboard = () => {
                       name="first_name"
                       value={form.first_name}
                       onChange={handleChange}
-                      className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                      className="w-full pl-10 p-2 border dark:text-slate-950 border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
                     />
                   </div>
                   {errors.first_name && (
@@ -186,7 +189,7 @@ const Dashboard = () => {
                       name="last_name"
                       value={form.last_name}
                       onChange={handleChange}
-                      className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                      className="w-full pl-10 p-2 border dark:text-slate-950 border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
                     />
                   </div>
                   {errors.last_name && (
@@ -207,7 +210,7 @@ const Dashboard = () => {
                       name="email"
                       value={form.email}
                       onChange={handleChange}
-                      className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                      className="w-full pl-10 p-2 border dark:text-slate-950 border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
                     />
                   </div>
                   {errors.email && (
@@ -229,19 +232,19 @@ const Dashboard = () => {
                       name="department"
                       value={form.department}
                       onChange={handleChange}
-                      className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                      className="w-full pl-10 p-2 dark:text-slate-950 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
                     >
                       <option value="">Select Department</option>
-                      <option value="Computer Science">Biotechnology</option>
-                      <option value="Information Technology">
-                        Food Science
+                      <option value="Biotechnology">Biotechnology</option>
+                      <option value="Food Science">Food Science</option>
+                      <option value="Applied Nutrition">
+                        Applied Nutrition
                       </option>
-                      <option value="Cyber Security">Applied Nutrition</option>
-                      <option value="Software Engineering">
+                      <option value="Industrial Chemistry">
                         Industrial Chemistry
                       </option>
-                      <option value="Software Engineering">Geology</option>
-                      <option value="Software Engineering">
+                      <option value="Geology">Geology</option>
+                      <option value=" Maths/Physics/Statistics">
                         Maths/Physics/Statistics
                       </option>
                     </select>
@@ -263,7 +266,7 @@ const Dashboard = () => {
                       name="application_type"
                       value={form.application_type}
                       onChange={handleChange}
-                      className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                      className="w-full pl-10 dark:text-slate-950 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
                     >
                       <option value="">Select Type</option>
                       <option value="Local">Local</option>
@@ -291,7 +294,7 @@ const Dashboard = () => {
                       name="level_of_application"
                       value={form.level_of_application}
                       onChange={handleChange}
-                      className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                      className="w-full pl-10 dark:text-slate-950 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
                     >
                       <option value="">Select Level</option>
                       <option value="phD">phD</option>
@@ -318,7 +321,7 @@ const Dashboard = () => {
                     name="phone_no"
                     value={form.phone_no}
                     onChange={handleChange}
-                    className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                    className="w-full pl-10 dark:text-slate-950 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
                   />
                 </div>
                 {errors.phone_no && (
@@ -337,7 +340,7 @@ const Dashboard = () => {
                     name="university_name"
                     value={form.university_name}
                     onChange={handleChange}
-                    className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                    className="w-full dark:text-slate-950 pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
                   />
                 </div>
                 {errors.university_name && (
@@ -360,7 +363,7 @@ const Dashboard = () => {
                     name="university_location"
                     value={form.university_location}
                     onChange={handleChange}
-                    className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                    className="w-full dark:text-slate-950 pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
                   />
                 </div>
                 {errors.university_location && (
@@ -381,7 +384,7 @@ const Dashboard = () => {
                     multiple
                     name="attached_file"
                     onChange={handleFileChange}
-                    className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                    className="w-full dark:text-slate-950 pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
                   />
                 </div>
                 {errors.attached_file && (

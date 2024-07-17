@@ -49,7 +49,7 @@ const CheckPage = () => {
               id="code"
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              className="w-ful pl-2 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+              className="w-ful dark:text-slate-950 pl-2 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
               required
             />
             <button
