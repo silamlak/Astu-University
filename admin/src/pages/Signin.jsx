@@ -9,6 +9,7 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 import Login from "../assets/images/login.svg";
 import Logo from "../assets/images/algo.png";
 import Loading from "../components/Loading";
+import { API } from "../utility";
 
 const Signin = () => {
   const auth = useSelector((state) => state.auth.user);
@@ -29,7 +30,7 @@ const Signin = () => {
   const loginFunc = async (form) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/college/sign_in",
+        `${API}/college/sign_in`,
         form
       );
       return response.data;
