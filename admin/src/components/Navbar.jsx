@@ -21,7 +21,7 @@ const Navbar = () => {
 
   return (
     <div className="sticky top-0">
-      <nav className="bg-white border-gray-200 dark:bg-gray-900 shadow-sm">
+      <nav className="bg-white border-gray-200 dark:bg-gray-900 shadow-lg transition-colors duration-200">
         <div className="flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
             to="/"
@@ -35,7 +35,7 @@ const Navbar = () => {
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul className="font-medium flex flex-col md:p-0 border-gray-100 rounded-lg md:flex-row">
               <li
-                className="flex items-center py-1 cursor-pointer hover:text-slate-900"
+                className="flex items-center py-1 cursor-pointer hover:text-slate-900 dark:hover:text-white"
                 onClick={handleLogout}
               >
                 <FaSignOutAlt className="mr-2" />

@@ -5,7 +5,6 @@ import { useMutation } from "@tanstack/react-query";
 import Loading from "../components/Loading";
 import toast from "react-hot-toast";
 
-
 const AddDepartmentOffice = () => {
   const [form, setForm] = useState({
     name: "",
@@ -22,12 +21,12 @@ const AddDepartmentOffice = () => {
     });
   };
 
-  const addOfficer = async (e) => {
+  const addOfficer = async () => {
     try {
       const res = await axios.post(
         `${API}/college/add/department_officer`,
         form
-      ); 
+      );
       console.log(res.data);
       return res.data;
     } catch (error) {
@@ -37,7 +36,7 @@ const AddDepartmentOffice = () => {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: () => addOfficer(form),
+    mutationFn: addOfficer,
     onSuccess: (data) => {
       console.log(data);
       setForm({
@@ -47,23 +46,23 @@ const AddDepartmentOffice = () => {
         phone_no: "",
         department: "",
       });
-      toast.success('New Department Officer Added')
+      toast.success("New Department Officer Added");
     },
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    mutate(form)
+    mutate();
   };
 
   return (
-    <div className="max-w-xl mx-auto font-bb my-8 p-6 bg-white shadow-lg rounded-md">
+    <div className="max-w-xl mx-auto font-bb my-8 p-6 bg-white dark:bg-gray-900 shadow-lg dark:shadow-2xl rounded-md">
       <h2 className="text-xl font-semibold mb-4 text-center">
         Add Department Office
       </h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">
             Name
           </label>
           <input
@@ -71,13 +70,13 @@ const AddDepartmentOffice = () => {
             name="name"
             value={form.name}
             onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border bg-slate-50 border-gray-300 rounded-lg focus:outline-none"
+            className="mt-1 block w-full px-3 py-2 border bg-slate-50 dark:bg-gray-800 border-gray-300 rounded-lg focus:outline-none"
             required
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">
             Email
           </label>
           <input
@@ -85,13 +84,13 @@ const AddDepartmentOffice = () => {
             name="email"
             value={form.email}
             onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border bg-slate-50 border-gray-300 rounded-lg focus:outline-none"
+            className="mt-1 block w-full px-3 py-2 border bg-slate-50 dark:bg-gray-800 border-gray-300 rounded-lg focus:outline-none"
             required
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">
             Password
           </label>
           <input
@@ -99,13 +98,13 @@ const AddDepartmentOffice = () => {
             name="password"
             value={form.password}
             onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border bg-slate-50 border-gray-300 rounded-lg focus:outline-none"
+            className="mt-1 block w-full px-3 py-2 border bg-slate-50 dark:bg-gray-800 border-gray-300 rounded-lg focus:outline-none"
             required
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">
             Phone Number
           </label>
           <input
@@ -113,34 +112,39 @@ const AddDepartmentOffice = () => {
             name="phone_no"
             value={form.phone_no}
             onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border bg-slate-50 border-gray-300 rounded-lg focus:outline-none"
+            className="mt-1 block w-full px-3 py-2 border bg-slate-50 dark:bg-gray-800 border-gray-300 rounded-lg focus:outline-none"
             required
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">
             Department
           </label>
           <select
             name="department"
             value={form.department}
             onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border bg-slate-50 border-gray-300 rounded-lg focus:outline-none"
+            className="mt-1 block w-full px-3 py-2 border bg-slate-50 dark:bg-gray-800 border-gray-300 rounded-lg focus:outline-none"
             required
           >
             <option value="">Select Department</option>
-            <option value="Department A">Department A</option>
-            <option value="Department B">Department B</option>
-            {/* Add more options as needed */}
+            <option value="Computer Science">Biotechnology</option>
+            <option value="Information Technology">Food Science</option>
+            <option value="Cyber Security">Applied Nutrition</option>
+            <option value="Software Engineering">Industrial Chemistry</option>
+            <option value="Software Engineering">Geology</option>
+            <option value="Software Engineering">
+              Maths/Physics/Statistics
+            </option>
           </select>
         </div>
 
         <div className="mt-6">
           <button
-          disabled={isPending}
+            disabled={isPending}
             type="submit"
-            className="w-contain flex gap-3 items-center text-white focus:outline-none  py-2 px-4 border bg-indigo-500 rounded-lg"
+            className="w-contain flex gap-3 items-center text-white focus:outline-none py-2 px-4 border bg-indigo-500 transition duration-75 rounded-lg"
           >
             <p>Add Department Office</p>
             {isPending && <Loading />}

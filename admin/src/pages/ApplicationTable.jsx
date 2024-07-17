@@ -18,26 +18,12 @@ const ApplicationTable = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(`${API}/college/application`);
-      // setApplications(response.data);
-      // dispatch(addApplication(response.data));
       return response.data;
     } catch (error) {
       console.error("Error fetching data:", error);
+      throw new Error("Failed to fetch data");
     }
   };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`${API}/college/application`);
-  //       // setApplications(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   const { data, isLoading, isSuccess, isError } = useQuery({
     queryKey: ["applications"],
@@ -45,9 +31,11 @@ const ApplicationTable = () => {
   });
 
   useEffect(() => {
-    setApplications(data);
-    dispatch(addApplication(data));
-  }, [isSuccess]);
+    if (isSuccess) {
+      setApplications(data);
+      dispatch(addApplication(data));
+    }
+  }, [isSuccess, data, dispatch]);
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -65,37 +53,42 @@ const ApplicationTable = () => {
   const applicationDetailView = async (id) => {
     try {
       const res = await axios.get(`${API}/college/application/${id}`);
-      //   console.log(res.data);
       setApplicationDetail(res.data);
       setIsOpen(true);
     } catch (error) {
       console.log(error);
     }
   };
-  if(isLoading) return <div className="w-full flex justify-center"><Loading /></div>
-     if (isError)
-       return (
-         <div className="w-full text-red-400 flex justify-center">
-           Error Occured
-         </div>
-       );
+
+  if (isLoading)
+    return (
+      <div className="w-full flex justify-center">
+        <Loading />
+      </div>
+    );
+  if (isError)
+    return (
+      <div className="w-full text-red-400 flex justify-center">
+        Error Occurred
+      </div>
+    );
 
   return (
-    <div className="container mx-auto mt-6 bg-gray-50 rounded-lg ">
+    <div className="container mx-auto mt-6 px-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
       {isopen && <ApplicationDetail d={applicationDetail} sIs={setIsOpen} />}
-      <table className="min-w-full bg-white rounded-lg">
-        <thead>
+      <table className="min-w-full bg-white dark:bg-gray-600 rounded-lg">
+        <thead className="">
           <tr>
-            <th className="py-2 px-3 bg-gray-200 text-left text-gray-700 font-semibold uppercase">
+            <th className="py-2 px-3 bg-gray-200 dark:bg-gray-800 text-left text-gray-700 dark:text-white font-semibold uppercase">
               Name
             </th>
-            <th className="py-2 px-3 bg-gray-200 text-left text-gray-700 font-semibold uppercase">
+            <th className="py-2 px-3 bg-gray-200 dark:bg-gray-800 text-left text-gray-700 dark:text-white font-semibold uppercase">
               Department
             </th>
-            <th className="py-2 px-3 bg-gray-200 text-left text-gray-700 font-semibold uppercase">
+            <th className="py-2 px-3 bg-gray-200 dark:bg-gray-800 text-left text-gray-700 dark:text-white font-semibold uppercase">
               Status
             </th>
-            <th className="py-2 px-3 bg-gray-200 text-center text-gray-700 font-semibold uppercase">
+            <th className="py-2 px-3 bg-gray-200 dark:bg-gray-800 text-center text-gray-700 dark:text-white font-semibold uppercase">
               Details
             </th>
           </tr>
@@ -104,15 +97,15 @@ const ApplicationTable = () => {
           {apps?.map((application, index) => (
             <tr
               key={index}
-              className="hover:bg-gray-100 even:bg-[#f8f8f8] border-b transition-colors duration-200"
+              className="hover:bg-gray-100 dark:hover:bg-gray-500 even:bg-[#f8f8f8] dark:even:bg-gray-700 border-b dark:border-gray-600 transition-colors duration-200"
             >
-              <td className="py-2 px-3 text-gray-800">
+              <td className="py-2 px-3 text-gray-800 dark:text-white">
                 {application.first_name} {application.last_name}
               </td>
-              <td className="py-2 px-3 text-gray-800">
+              <td className="py-2 px-3 text-gray-800 dark:text-white">
                 {application.department}
               </td>
-              <td className="">
+              <td>
                 <p
                   className={`py-1 px-3 w-fit rounded-2xl text-[12px] font-semibold border-b ${getStatusColor(
                     application.college_status
@@ -123,7 +116,7 @@ const ApplicationTable = () => {
               </td>
               <td className="py-2 px-3 flex justify-center items-center">
                 <FaInfoCircle
-                  className=" text-blue-500 cursor-pointer"
+                  className="text-blue-500 cursor-pointer"
                   onClick={() => applicationDetailView(application._id)}
                 />
               </td>

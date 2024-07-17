@@ -14,7 +14,7 @@ console.log(auth)
       <Sidebar />
       <div className="flex flex-col flex-grow">
         <Navbar />
-        <main className="flex-grow p-4 overflow-auto">
+        <main className="flex-grow overflow-auto dark:bg-gray-900">
           <Outlet />
         </main>
       </div>

@@ -18,11 +18,14 @@ const AddDepartment = () => {
     });
   };
 
-  const AddDepartment = async (form) => {
+  const addDepartment = async (formData) => {
     try {
-      const res = await axios.post(`${API}/college/add/department`, form); // Adjust API endpoint accordingly
-      console.log(res.data);
-      return res.data;
+      const response = await axios.post(
+        `${API}/college/add/department`,
+        formData
+      );
+      console.log(response.data);
+      return response.data;
     } catch (error) {
       console.error("Error adding department: ", error);
       alert("Error adding department. Please try again.");
@@ -30,14 +33,13 @@ const AddDepartment = () => {
   };
 
   const { isPending, mutate } = useMutation({
-    mutationFn: AddDepartment,
+    mutationFn: addDepartment,
     onSuccess: (data) => {
       setForm({
         name: "",
         description: "",
       });
       toast.success("New Department Added");
-
     },
   });
 
@@ -51,16 +53,16 @@ const AddDepartment = () => {
       <div className="w-full flex justify-center my-6">
         <p className="font-semibold text-lg mb-4 p-2 w-fit rounded-lg border border-green-400 bg-green-100 text-green-700 text-center">
           <span className="text-xl font-serif">! </span>Hello, Welcome College
-          Officer to add Departments You must fill all fields
+          Officer to add Departments. You must fill all fields.
         </p>
       </div>
-      <div className="max-w-xl mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
+      <div className="max-w-xl mx-auto my-8 p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
         <h2 className="text-2xl font-semibold text-center mb-10">
           Add Department
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">
               Department
             </label>
             <input
@@ -69,13 +71,13 @@ const AddDepartment = () => {
               value={form.name}
               onChange={handleChange}
               placeholder="Example.... Computer Science"
-              className="mt-1 block w-full px-3 py-2 border bg-slate-50 border-gray-300 rounded-lg focus:outline-none"
+              className="mt-1 block w-full px-3 py-2 border bg-slate-50 dark:bg-gray-800 border-gray-300 rounded-lg focus:outline-none"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">
               Description
             </label>
             <textarea
@@ -83,7 +85,7 @@ const AddDepartment = () => {
               value={form.description}
               onChange={handleChange}
               rows="4"
-              className="mt-1 block w-full px-3 py-2 bg-slate-50 border border-gray-300 rounded-md focus:outline-none"
+              className="mt-1 block w-full px-3 py-2 bg-slate-50 dark:bg-gray-800 border border-gray-300 rounded-md focus:outline-none"
               required
             ></textarea>
           </div>
@@ -92,7 +94,7 @@ const AddDepartment = () => {
             <button
               disabled={isPending}
               type="submit"
-              className="flex items-center gap-3 w-contain text-white text-lg focus:outline-none   py-2 px-4 border bg-indigo-500 hover:bg-indigo-600 transition duration-75 rounded-lg"
+              className="flex items-center gap-3 w-contain text-white text-lg focus:outline-none py-2 px-4 border bg-indigo-500  transition duration-75 rounded-lg"
             >
               <p>Add Department</p>
               {isPending && <Loading />}

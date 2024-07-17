@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { FaUniversity, FaBuilding, FaListUl } from "react-icons/fa";
-import Logo from '../assets/images/algo.png'
+import Logo from "../assets/images/algo.png";
+
 const Sidebar = () => {
   const auth = useSelector((state) => state.auth.user.role_based);
   const sidebarLinks = [
@@ -38,10 +39,10 @@ const Sidebar = () => {
       <ul>
         <li className="mb-4">
           <NavLink
-            to='/'
-            className="flex items-center justify-center py-2 px-4 bg-slate-100 rounded text-blue-500 hover:bg-slate-100 "
+            to="/"
+            className="flex items-center justify-center py-2 px-4 bg-slate-100 rounded text-blue-500 hover:bg-slate-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white"
           >
-            <img src={Logo} className="mr-4 h-40 w-full"/>
+            <img src={Logo} className="mr-4 h-40 w-full" alt="Logo" />
             <span className="hidden md:inline lg:inline"></span>
           </NavLink>
         </li>
@@ -51,12 +52,15 @@ const Sidebar = () => {
               to={link.to}
               className={({ isActive }) =>
                 isActive
-                  ? "flex items-center py-2 px-4 bg-slate-100 rounded text-blue-500"
-                  : "flex items-center py-2 px-4 hover:bg-slate-100 rounded"
+                  ? "flex items-center py-2 px-4 bg-slate-100 rounded text-blue-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white"
+                  : "flex items-center py-2 px-4 rounded hover:bg-slate-100 dark:hover:bg-gray-700 dark:text-white"
               }
+              activeClassName="bg-slate-100 text-blue-500 dark:bg-gray-800 dark:text-white"
             >
               <span className="mr-4">{link.icon}</span>
-              <span className="hidden md:inline lg:inline font-semibold">{link.label}</span>
+              <span className="hidden md:inline lg:inline font-semibold">
+                {link.label}
+              </span>
             </NavLink>
           </li>
         ))}
