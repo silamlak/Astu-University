@@ -8,7 +8,7 @@ const Layout = () => {
     <div className="font-rb min-h-screen">
       <Navbar />
       <div>
-        <div className="mx-auto">
+        <div className="mx-autom bg-white">
           <Outlet />
         </div>
         <Footbar />

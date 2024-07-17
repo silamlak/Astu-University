@@ -34,7 +34,7 @@ const CheckPage = () => {
   };
 
   return (
-    <div className="container mx-auto mt-12 flex flex-col items-center gap-6">
+    <div className="container mx-auto pt-12 flex flex-col items-center gap-6">
       <h1 className="text-2xl font-bold mb-4">Check Your Application Status</h1>
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="mb-2">

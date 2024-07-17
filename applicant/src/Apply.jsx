@@ -132,7 +132,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-8 my-20">
+    <div className="p-8 py-20 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-row-reverse justify-center items-center gap-20 max-xl:gap-14 max-lg:gap-4">
           <img
@@ -140,7 +140,7 @@ const Dashboard = () => {
             className="w-[400px] h-[400px] max-md:hidden"
             alt="Form"
           />
-          <form onSubmit={handleSubmit} className="p-6 shadow-md rounded-xl">
+          <form onSubmit={handleSubmit} className="p-6 shadow-md bg-white rounded-xl">
             <div className="relative">
               <h2 className="relative text-2xl text-center font-bold mb-12">
                 Application Form

@@ -5,11 +5,11 @@ import {SUBTITLE, TITLE} from '../utils'
 
 const DashBoard = () => {
   return (
-    <div className="w-full">
-      <section className="bg-gray-700 relative mb-12">
+    <div className="w-full bg-white">
+      <section className="bg-white relative pb-12">
         <img src={Dash} className="w-full h-[600px] object-fit" />
         <div className="dark-overlay absolute  h-[600px] inset-0 bg-black opacity-50"></div>
-        <div className="absolute inset-0  h-[600px] flex items-center justify-center">
+        <div className="absolute inset-0 h-[600px] flex items-center justify-center">
           <div className="px-4 mx-auto max-w-screen-xl text-center py-24 lg:y-56">
             <h1 className="mb-4 text-2xl font-extrabold tracking-tight leading-none text-white md:text-4xl lg:text-5xl">
              {TITLE}
