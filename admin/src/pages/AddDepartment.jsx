@@ -49,8 +49,8 @@ const AddDepartment = () => {
   return (
     <div className="">
       <div className="w-full flex justify-center my-6">
-        <p className="font-semibold text-lg p-2 w-fit rounded-lg border border-green-400 bg-green-100 text-green-700 text-center">
-          <span className="text-3xl font-serif">! </span>Hello, Welcome College
+        <p className="font-semibold text-lg mb-4 p-2 w-fit rounded-lg border border-green-400 bg-green-100 text-green-700 text-center">
+          <span className="text-xl font-serif">! </span>Hello, Welcome College
           Officer to add Departments You must fill all fields
         </p>
       </div>
