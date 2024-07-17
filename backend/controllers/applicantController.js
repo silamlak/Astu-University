@@ -33,16 +33,30 @@ export const applyTransfer = async (req, res, next) => {
     // Use promisified upload
     await uploadPromise(req, res);
 
-    const { first_name, last_name, email, department, phone_no } = req.body;
+    const {
+      first_name,
+      last_name,
+      email,
+      department,
+      phone_no,
+      application_type,
+      level_of_application,
+      university_name,
+      university_location,
+    } = req.body;
     const attached_file = req.file.filename;
     const confirmation_code = generateConfirmationCode();
-
+console.log(req.body)
     const newApplicantForm = new applicantFormModel({
       first_name,
       last_name,
       email,
       department,
       phone_no,
+      application_type,
+      level_of_application,
+      university_name,
+      university_location,
       attached_file,
       confirmation_code,
     });

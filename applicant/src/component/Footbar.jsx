@@ -6,20 +6,13 @@ const Footbar = () => {
   return (
     <div className="">
       <footer class="bg-blue-900 border-t-4 border-t-yellow-600">
-        <div class="mx-auto w-full max-w-screen-2xl p-4 py-6 lg:py-8">
-          <div class="md:flex md:justify-between">
-            <div class="mb-6 md:mb-0">
+        <div class="mx-auto w-full max-w-screen-2xl p-4 py-6">
+          <div class="sm:flex sm:items-center sm:justify-between">
+            <div class="">
               <Link to="/" class="flex justify-start items-center">
-                <img src={Logo} class="h-[80px] w-22 me-3" alt="AASTU" />
-                <span class="max-w-md text-white  font-semibold dark:text-white">
-                  Apply for international scholarships and further your
-                  education abroad through our streamlined application process.
-                </span>
+                <img src={Logo} class="h-[50px] w-22 me-3" alt="AASTU" />
               </Link>
             </div>
-          </div>
-          <hr class="my-6 border-blue-400 sm:mx-auto dark:border-gray-700 lg:my-8" />
-          <div class="sm:flex sm:items-center sm:justify-between">
             <span class="text-sm text-white sm:text-center dark:text-gray-400">
               © 2024{" "}
               <a href="http://www.aastu.edu.et/" class="hover:underline">

@@ -22,6 +22,10 @@ const Dashboard = () => {
     email: "",
     department: "",
     phone_no: "",
+    application_type: '',
+    level_of_application: '',
+    university_name: '',
+    university_location: '',
     attached_file: "",
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -67,6 +71,10 @@ const Dashboard = () => {
         email: "",
         department: "",
         phone_no: "",
+        application_type: "",
+        level_of_application: "",
+        university_name: "",
+        university_location: "",
         attached_file: "",
       });
       setIsLoading(false);
@@ -143,7 +151,9 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="mb-4 relative">
-                <label className="block text-gray-700">Department</label>
+                <label className="block text-gray-700">
+                  Department/Division
+                </label>
                 <div className="flex items-center">
                   <span className="absolute pl-3 text-gray-400">
                     <FaBook />
@@ -156,14 +166,57 @@ const Dashboard = () => {
                     required
                   >
                     <option value="">Select Department</option>
-                    <option value="Computer Science">Computer Science</option>
-                    <option value="Information Technology">
-                      Information Technology
-                    </option>
-                    <option value="Cyber Security">Cyber Security</option>
+                    <option value="Computer Science">Biotechnology</option>
+                    <option value="Information Technology">Food Science</option>
+                    <option value="Cyber Security">Applied Nutrition</option>
                     <option value="Software Engineering">
-                      Software Engineering
+                      Industrial Chemistry
                     </option>
+                    <option value="Software Engineering">Geology</option>
+                    <option value="Software Engineering">
+                      Maths/Physics/Stastics
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div className="mb-4 relative">
+                <label className="block text-gray-700">Application Type</label>
+                <div className="flex items-center">
+                  <span className="absolute pl-3 text-gray-400">
+                    <FaBook />
+                  </span>
+                  <select
+                    name="application_type"
+                    value={form.application_type}
+                    onChange={handleChange}
+                    className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                    required
+                  >
+                    <option value="">Select Type</option>
+                    <option value="Local">Local</option>
+                    <option value="International">International</option>
+                  </select>
+                </div>
+              </div>
+              <div className="mb-4 relative">
+                <label className="block text-gray-700">
+                  Level of Application
+                </label>
+                <div className="flex items-center">
+                  <span className="absolute pl-3 text-gray-400">
+                    <FaBook />
+                  </span>
+                  <select
+                    name="level_of_application"
+                    value={form.level_of_application}
+                    onChange={handleChange}
+                    className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                    required
+                  >
+                    <option value="">Select Level</option>
+                    <option value="phD">phD</option>
+                    <option value="MSc">MSc</option>
+                    <option value="BSc">BSc</option>
                   </select>
                 </div>
               </div>
@@ -177,6 +230,40 @@ const Dashboard = () => {
                     type="text"
                     name="phone_no"
                     value={form.phone_no}
+                    onChange={handleChange}
+                    className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="mb-4 relative">
+                <label className="block text-gray-700">University Name</label>
+                <div className="flex items-center">
+                  <span className="absolute pl-3 text-gray-400">
+                    <FaPhone />
+                  </span>
+                  <input
+                    type="text"
+                    name="university_name"
+                    value={form.university_name}
+                    onChange={handleChange}
+                    className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="mb-4 relative">
+                <label className="block text-gray-700">
+                  University Location
+                </label>
+                <div className="flex items-center">
+                  <span className="absolute pl-3 text-gray-400">
+                    <FaPhone />
+                  </span>
+                  <input
+                    type="text"
+                    name="university_location"
+                    value={form.university_location}
                     onChange={handleChange}
                     className="w-full pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
                     required

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { TITLE } from "../utils";
+import { SUBTITLE, TITLE } from "../utils";
 import Logo from "../assets/image/algo.png";
 
 const Navbar = () => {
@@ -24,7 +24,14 @@ const Navbar = () => {
               src={Logo}
               className="w-20 h-20 max-md:w-12 max-md:h-12 max-sm:w-8 max-sm:h-8"
             />
-            <p className="text-2xl max-md:text-lg max-sm:text-md font-titl">{TITLE}</p>
+            <div className="flex flex-col">
+              <p className="text-2xl max-md:text-lg max-sm:text-md font-titl">
+                {TITLE}
+              </p>
+              <p className="text-lg max-md:text-md max-sm:text-sm font-titl">
+                {SUBTITLE}
+              </p>
+            </div>
           </Link>
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-transparent md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">

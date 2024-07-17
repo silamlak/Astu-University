@@ -22,6 +22,22 @@ const applicantForm = mongoose.Schema(
       type: String,
       required: true,
     },
+    application_type: {
+      type: String,
+      required: true,
+    },
+    level_of_application: {
+      type: String,
+      required: true,
+    },
+    university_name: {
+      type: String,
+      required: true,
+    },
+    university_location: {
+      type: String,
+      required: true,
+    },
     attached_file: {
       type: String,
       required: true,
@@ -44,4 +60,4 @@ const applicantForm = mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model('ApplicantForms', applicantForm)
+export default mongoose.model("ApplicantForms", applicantForm);

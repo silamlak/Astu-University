@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import Dash from '../assets/image/dash.png'
+import {SUBTITLE, TITLE} from '../utils'
 
 const DashBoard = () => {
   return (
@@ -11,7 +12,10 @@ const DashBoard = () => {
         <div className="absolute inset-0  h-[600px] flex items-center justify-center">
           <div className="px-4 mx-auto max-w-screen-xl text-center py-24 lg:y-56">
             <h1 className="mb-4 text-2xl font-extrabold tracking-tight leading-none text-white md:text-4xl lg:text-5xl">
-              Addis Ababa Science and Technology University
+             {TITLE}
+            </h1>
+            <h1 className="mb-4 text-xl font-extrabold tracking-tight leading-none text-white md:text-2xl lg:text-3xl">
+             {SUBTITLE}
             </h1>
             <p className="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">
               Apply for international scholarships and further your education
