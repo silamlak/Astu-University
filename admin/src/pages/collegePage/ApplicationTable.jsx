@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { API } from "../utility";
+import { API } from "../../utility";
 import { FaInfoCircle } from "react-icons/fa";
-import ApplicationDetail from "../components/college/ApplicationDetail";
+import ApplicationDetail from "../../components/college/ApplicationDetail";
 import { useDispatch, useSelector } from "react-redux";
-import { addApplication } from "../api/features/applicationList";
+import { addApplication } from "../../api/features/applicationList";
 import { useQuery } from "@tanstack/react-query";
-import Loading from "../components/Loading";
+import Loading from "../../components/Loading";
 
 const ApplicationTable = () => {
   const dispatch = useDispatch();

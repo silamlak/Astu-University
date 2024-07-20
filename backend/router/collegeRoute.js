@@ -6,6 +6,7 @@ import {
   applicationDetail,
   applicationList,
   applicationStatus,
+  createStudent,
   logout,
   refresh,
   signin,
@@ -21,5 +22,6 @@ router.post("/add/college_officer", addCollegeOfficer);
 router.get("/application/:id", applicationDetail);
 router.put("/application/status/:id", applicationStatus);
 router.get("/application", applicationList);
+router.post("/add/student", createStudent);
 
 export default router;

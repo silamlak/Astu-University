@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { API } from "../utility";
+import { API } from "../../utility";
 import { useMutation } from "@tanstack/react-query";
-import Loading from "../components/Loading";
+import Loading from "../../components/Loading";
 import toast from "react-hot-toast";
 
 const AddDepartment = () => {

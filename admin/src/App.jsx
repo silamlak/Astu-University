@@ -4,11 +4,12 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Signin from "./pages/Signin";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
-import AddDepartmentOffice from "./pages/AddDepartmentOffice";
-import AddDepartment from "./pages/AddDepartment";
-import ApplicationTable from "./pages/ApplicationTable";
+import AddDepartmentOffice from "./pages/collegePage/AddDepartmentOffice";
+import AddDepartment from "./pages/collegePage/AddDepartment";
+import ApplicationTable from "./pages/collegePage/ApplicationTable";
 import ApplicationListPage from "./pages/DepartmentPages/ApplicationListPage";
 import Layout from "./components/Layout";
+import CreateStudent from "./pages/collegePage/CreateStudent";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -62,6 +63,15 @@ const App = () => {
           element: (
             <ProtectedRoute
               element={AddDepartment}
+              allowedRoles={["College"]}
+            />
+          ),
+        },
+        {
+          path: "/create-user-aastu/:id",
+          element: (
+            <ProtectedRoute
+              element={CreateStudent}
               allowedRoles={["College"]}
             />
           ),

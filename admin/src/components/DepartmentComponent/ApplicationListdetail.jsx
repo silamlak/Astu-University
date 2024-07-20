@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { API } from "../../utility";
 import { useDispatch, useSelector } from "react-redux";
 import { updateState } from "../../api/features/applicationList";
+import { AiOutlineClose } from "react-icons/ai";
 
 const ApplicationListDetail = ({ d, sIs }) => {
   const auth = useSelector((state) => state.auth.user);
@@ -54,6 +55,9 @@ const ApplicationListDetail = ({ d, sIs }) => {
   return (
     <div className="fixed inset-0 bg-slate-600 bg-opacity-75 dark:bg-slate-900 dark:bg-opacity-75 flex justify-center items-center p-6">
       <div className="container mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+        <button onClick={() => sIs(false)} className="">
+          <AiOutlineClose className="absolute top-5 right-5 p-1 font-extrabold bg-white text-2xl rounded-full hover:bg-slate-400 transition-all duration-100" />
+        </button>
         <h1 className="text-2xl font-bold mb-6 sticky top-0 z-50 w-full h-[40px] bg-white dark:bg-gray-800 p-4">
           Application Details
         </h1>
@@ -114,18 +118,24 @@ const ApplicationListDetail = ({ d, sIs }) => {
           </div> */}
         </div>
         <div className="flex justify-between p-4">
-          <button
-            onClick={() => handleStatusChange("approved")}
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Approve
-          </button>
-          <button
-            onClick={() => handleStatusChange("rejected")}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Reject
-          </button>
+          {(d.department_status === "rejected" ||
+            d.department_status === "pending") && (
+            <button
+              onClick={() => handleStatusChange("approved")}
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Approve
+            </button>
+          )}
+          {(d.department_status === "approved" ||
+            d.department_status === "pending") && (
+            <button
+              onClick={() => handleStatusChange("rejected")}
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Reject
+            </button>
+          )}
         </div>
       </div>
     </div>

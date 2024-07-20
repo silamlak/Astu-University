@@ -5,6 +5,7 @@ import departmentModel from "../models/departmentModel.js";
 import departmentOfficerModel from "../models/departmentOfficerModel.js";
 import collegeModel from '../models/collegeModel.js'
 import applicationModel from '../models/applicantFormModel.js'
+import studentsModel from "../models/studentsModel.js";
 
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
@@ -150,6 +151,16 @@ export const applicationStatus = async (req, res, next) => {
       .where("department_status")
       .equals("approved");
     res.status(201).json(applicationStatus);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createStudent = async (req, res, next) => {
+  try {
+    const newDepartment = new studentsModel(req.body);
+    await newDepartment.save();
+    res.status(201).json({ message: "new student created" });
   } catch (error) {
     next(error);
   }
