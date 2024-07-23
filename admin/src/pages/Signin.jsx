@@ -129,7 +129,7 @@ const Signin = () => {
             type="submit"
             className="w-fit flex items-center gap-3 px-3 bg-blue-500 dark:bg-blue-600 text-white py-2 transition duration-75 rounded-lg focus:outline-none hover:bg-blue-600 dark:hover:bg-blue-700"
           >
-            <p>Submit</p>
+            <p className="tracking-wider">Signin</p>
             {isPending && <Loading />}
           </button>
         </form>

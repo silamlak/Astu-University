@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { logout } from "../api/features/auth";
 import { FaSignOutAlt, FaHome } from "react-icons/fa";
 import Logo from "../assets/images/algo.png";
+import { removeApplication } from "../api/features/applicationList";
 
 const Navbar = () => {
   const location = useLocation();
@@ -11,6 +12,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     dispatch(logout());
+    dispatch(removeApplication());
   };
 
   const getLinkClasses = (path) => {

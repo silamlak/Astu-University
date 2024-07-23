@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { FaUniversity, FaBuilding, FaListUl } from "react-icons/fa";
+import { FiEdit } from "react-icons/fi";
+
 import Logo from "../assets/images/algo.png";
 
 const Sidebar = () => {
@@ -22,12 +24,22 @@ const Sidebar = () => {
       label: "Application List",
       icon: <FaListUl />,
     },
+    {
+      to: `/edit-pro-/${auth.id}`,
+      label: "Edit Profile",
+      icon: <FiEdit />,
+    },
   ];
   const sidebarLinksDepartment = [
     {
       to: "/d/application/list",
       label: "Application List",
       icon: <FaListUl />,
+    },
+    {
+      to: `/edit-pro-/${auth.id}`,
+      label: "Edit Profile",
+      icon: <FiEdit />,
     },
   ];
 

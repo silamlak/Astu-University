@@ -7,14 +7,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { addApplication } from "../../api/features/applicationList";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading";
+import DataTable from "react-data-table-component";
 
 const ApplicationListPage = () => {
   const dispatch = useDispatch();
   const apps = useSelector((state) => state.application.applications);
   const auth = useSelector((state) => state.auth.user);
-  const [applications, setApplications] = useState([]);
   const [applicationDetail, setApplicationDetail] = useState();
   const [isopen, setIsOpen] = useState(false);
+  const [filterText, setFilterText] = useState("");
+  const [filteredApps, setFilteredApps] = useState(apps);
 
   const fetchData = async () => {
     try {
@@ -45,10 +47,23 @@ const ApplicationListPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setApplications(data);
+      setFilteredApps(data);
       dispatch(addApplication(data));
     }
   }, [isSuccess, data, dispatch]);
+
+  useEffect(() => {
+    const filteredData = apps?.filter(
+      (app) =>
+        `${app.first_name} ${app.last_name}`
+          .toLowerCase()
+          .includes(filterText.toLowerCase()) ||
+        app.department.toLowerCase().includes(filterText.toLowerCase()) ||
+        app.phone_no.includes(filterText) ||
+        app.department_status.toLowerCase().includes(filterText.toLowerCase())
+    );
+    setFilteredApps(filteredData);
+  }, [filterText, apps]);
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -83,9 +98,52 @@ const ApplicationListPage = () => {
     }
   };
 
-  const viewFile = (file) => {
-    window.open(`http://localhost:8000/files/${file}`, "_blank", "noreferrer");
-  };
+  const columns = [
+    {
+      name: "Name",
+      selector: (row) => `${row.first_name} ${row.last_name}`,
+      sortable: true,
+      style: {
+        header: {
+          className: "text-2xl",
+        },
+      },
+    },
+    {
+      name: "Department",
+      selector: (row) => row.department,
+      sortable: true,
+    },
+    {
+      name: "Phone Number",
+      selector: (row) => row.phone_no,
+      sortable: true,
+    },
+    {
+      name: "Department Status",
+      selector: (row) => row.department_status,
+      sortable: true,
+      cell: (row) => (
+        <p
+          className={`text-center uppercase py-1 px-3 w-fit rounded-2xl text-[12px] font-semibold border-b ${getStatusColor(
+            row.department_status
+          )}`}
+        >
+          {row.department_status}
+        </p>
+      ),
+    },
+    {
+      name: "Details",
+      button: true,
+      cell: (row) => (
+        <FaInfoCircle
+          className="text-blue-500 cursor-pointer"
+          onClick={() => applicationDetailView(row._id)}
+        />
+      ),
+    },
+  ];
 
   if (isLoading)
     return (
@@ -101,62 +159,29 @@ const ApplicationListPage = () => {
     );
 
   return (
-    <div className="container mx-auto mt-6 px-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
-      {isopen && <ApplicationDetail d={applicationDetail} sIs={setIsOpen} />}
-      <table className="min-w-full bg-white dark:bg-gray-800 rounded-lg">
-        <thead>
-          <tr>
-            <th className="py-2 px-3 bg-gray-200 dark:bg-gray-700 text-left text-gray-700 dark:text-white font-semibold uppercase">
-              Name
-            </th>
-            <th className="py-2 px-3 bg-gray-200 dark:bg-gray-700 text-left text-gray-700 dark:text-white font-semibold uppercase">
-              Department
-            </th>
-            <th className="py-2 px-3 bg-gray-200 dark:bg-gray-700 text-left text-gray-700 dark:text-white font-semibold uppercase">
-              Phone Number
-            </th>
-            <th className="py-2 px-3 bg-gray-200 dark:bg-gray-700 text-left text-gray-700 dark:text-white font-semibold uppercase">
-              Department Status
-            </th>
-            <th className="py-2 px-3 bg-gray-200 dark:bg-gray-700 text-left text-gray-700 dark:text-white font-semibold uppercase">
-              Details
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {apps?.map((application, index) => (
-            <tr
-              key={index}
-              className="hover:bg-gray-100 dark:hover:bg-gray-600 even:bg-[#f8f8f8] dark:even:bg-gray-700 border-b dark:border-gray-600 transition-colors duration-200"
-            >
-              <td className="py-2 px-3 text-gray-800 dark:text-white">
-                {application.first_name} {application.last_name}
-              </td>
-              <td className="py-2 px-3 text-gray-800 dark:text-white">
-                {application.department}
-              </td>
-              <td className="py-2 px-3 text-gray-800 dark:text-white">
-                {application.phone_no}
-              </td>
-              <td>
-                <p
-                  className={`text-center py-1 px-3 w-fit rounded-2xl text-[12px] font-semibold border-b ${getStatusColor(
-                    application.department_status
-                  )}`}
-                >
-                  {application.department_status}
-                </p>
-              </td>
-              <td className="py-2 px-3 flex justify-center items-center">
-                <FaInfoCircle
-                  className="text-blue-500 cursor-pointer"
-                  onClick={() => applicationDetailView(application._id)}
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="container mx-auto mt-8 px-4 py-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+        {isopen && <ApplicationDetail d={applicationDetail} sIs={setIsOpen} />}
+      <div className="text-center text-2xl font-semibold">
+        Application List
+      </div>
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Filter by name, department, phone number, or status"
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value)}
+          className="w-[300px] p-2 border rounded-md focus:outline-blue-300"
+        />
+      </div>
+      <DataTable
+        columns={columns}
+        data={filteredApps}
+        pagination
+        highlightOnHover
+        pointerOnHover
+        striped
+        responsive
+      />
     </div>
   );
 };

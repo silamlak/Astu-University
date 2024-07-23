@@ -52,6 +52,12 @@ const applicantForm = mongoose.Schema(
       enum: ["pending", "approved", "rejected"],
       default: "pending",
     },
+    department_minute: {
+      type: String,
+    },
+    college_minute: {
+      type: String,
+    },
     confirmation_code: {
       type: String,
       required: true,

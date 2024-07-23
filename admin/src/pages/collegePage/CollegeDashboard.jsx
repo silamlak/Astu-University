@@ -1,54 +1,38 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React, { useState } from 'react'
-import Loading from '../../components/Loading';
-import { API } from '../../utility';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { FaArrowRightLong } from 'react-icons/fa6';
+import React from "react";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { API } from "../../utility";
+import Loading from "../../components/Loading";
+import { FaArrowRightLong } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
-const DepartmentDashboard = () => {
-    const [applications, setApplications] = useState([]);
-    const auth = useSelector((state) => state.auth.user)
+const CollegeDashboard = () => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${API}/college/application`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw new Error("Failed to fetch data");
+    }
+  };
 
-    const fetchData = async () => {
-      try {
-        let response;
-        if (auth) {
-          response = await axios.get(
-            `${API}/department/application/list`,
-            {
-              headers: {
-                role: auth.role,
-              },
-            },
-            {
-              withCredentials: true,
-            }
-          );
-        }
-        return response.data;
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["applicationsDash"],
+    queryFn: fetchData,
+  });
 
-    const { data, isLoading, isSuccess, isError } = useQuery({
-      queryKey: ["applicationsDash"],
-      queryFn: fetchData,
-    });
- 
   const countStatuses = (data) => {
     let approved = 0;
     let rejected = 0;
     let pending = 0;
 
     data?.forEach((app) => {
-      if (app.department_status === "approved") {
+      if (app.college_status === "approved") {
         approved++;
-      } else if (app.department_status === "rejected") {
+      } else if (app.college_status === "rejected") {
         rejected++;
-      } else if (app.department_status === "pending") {
+      } else if (app.college_status === "pending") {
         pending++;
       }
     });
@@ -63,7 +47,7 @@ const DepartmentDashboard = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-semibold mb-8 text-center">
-        Department Dashboard
+        College Dashboard
       </h1>
       {isLoading ? (
         <div className="flex justify-center">
@@ -83,7 +67,7 @@ const DepartmentDashboard = () => {
               Approved Applications
             </h2>
             <Link
-              to="/d/application/list"
+              to="/application/list"
               className="bg-green-600 mt-8 w-fit p-2 rounded-md flex items-center gap-2 font-bold mb-2 justify-end"
             >
               <p>View</p>
@@ -100,7 +84,7 @@ const DepartmentDashboard = () => {
               Rejected Applications
             </h2>
             <Link
-              to="/d/application/list"
+              to="/application/list"
               className="bg-red-600 mt-8 w-fit p-2 rounded-md flex items-center gap-2 font-bold mb-2 justify-end"
             >
               <p>View</p>
@@ -117,7 +101,7 @@ const DepartmentDashboard = () => {
               Pending Applications
             </h2>
             <Link
-              to="/d/application/list"
+              to="/application/list"
               className="bg-yellow-600 mt-8 w-fit p-2 rounded-md flex items-center gap-2 font-bold mb-2 justify-end"
             >
               <p>View</p>
@@ -130,4 +114,4 @@ const DepartmentDashboard = () => {
   );
 };
 
-export default DepartmentDashboard
+export default CollegeDashboard;

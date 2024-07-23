@@ -8,10 +8,25 @@ import AddDepartmentOffice from "./pages/collegePage/AddDepartmentOffice";
 import AddDepartment from "./pages/collegePage/AddDepartment";
 import ApplicationTable from "./pages/collegePage/ApplicationTable";
 import ApplicationListPage from "./pages/DepartmentPages/ApplicationListPage";
+import DepartmentDashboard from "./pages/DepartmentPages/DepartmentDashboard";
 import Layout from "./components/Layout";
 import CreateStudent from "./pages/collegePage/CreateStudent";
+import EditProfile from "./pages/EditProfile";
+import { useSelector } from "react-redux";
+import CollegeDashboard from "./pages/collegePage/CollegeDashboard";
 
 const App = () => {
+  const auth = useSelector((state) => state.auth.user);
+  console.log(auth);
+  let userDashboard;
+  let allowed;
+  if (auth?.role_based === "College") {
+    userDashboard = CollegeDashboard;
+    allowed = "College";
+  } else {
+    userDashboard = DepartmentDashboard;
+    allowed = "Department";
+  }
   const router = createBrowserRouter([
     {
       path: "/",
@@ -25,10 +40,7 @@ const App = () => {
         {
           path: "/",
           element: (
-            <ProtectedRoute
-              element={Dashboard}
-              allowedRoles={["College", "Department"]}
-            />
+            <ProtectedRoute element={userDashboard} allowedRoles={[allowed]} />
           ),
         },
         {
@@ -73,6 +85,15 @@ const App = () => {
             <ProtectedRoute
               element={CreateStudent}
               allowedRoles={["College"]}
+            />
+          ),
+        },
+        {
+          path: "/edit-pro-/:id",
+          element: (
+            <ProtectedRoute
+              element={EditProfile}
+              allowedRoles={["College", "Department"]}
             />
           ),
         },

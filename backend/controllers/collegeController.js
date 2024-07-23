@@ -47,7 +47,7 @@ export const signin = async (req, res, next) => {
   }
 };
 
-export const refresh = async (req, res) => {
+export const refresh = async (req, res, next) => {
     const cookies = req.cookies
     if (!cookies.jwt) return res.status(401).json({message: 'unauthorizeds'})
         const refreshToken = cookies.jwt
@@ -69,7 +69,7 @@ export const refresh = async (req, res) => {
     })
 }
 
-export const logout = async (req, res) => {
+export const logout = async (req, res, next) => {
     const cookies = req.cookies
     if(!cookies.jwt) return res.status(401).json({ message: "unauthorized" });
     res.clearCookie('jwt', {
@@ -116,7 +116,9 @@ export const applicationList = async (req, res, next) => {
       .find()
       // .select("-email -department_status ")
       .where("department_status")
-      .equals("approved");
+      .equals("approved")
+      .sort({ createdAt: -1 });
+      console.log(applicationList)
     res.status(201).json(applicationList);
   } catch (error) {
     next(error);
@@ -139,12 +141,12 @@ export const applicationDetail = async (req, res, next) => {
 
 export const applicationStatus = async (req, res, next) => {
   const {id}= req.params
-  const {college_status} = req.body
+  const { college_status, college_minute } = req.body;
   try {
     const applicationStatus = await applicationModel
       .findByIdAndUpdate(
         id,
-        { $set: { college_status } },
+        { $set: { college_status, college_minute } },
         { new: true }
       )
       // .select("-email -department_status ")
@@ -161,6 +163,46 @@ export const createStudent = async (req, res, next) => {
     const newDepartment = new studentsModel(req.body);
     await newDepartment.save();
     res.status(201).json({ message: "new student created" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getUser = async (req, res, next) => {
+  try {
+    const {id} = req.params
+
+    let user =
+      (await departmentOfficerModel.findById(id)) ||
+      (await collegeModel.findById(id));
+
+    if (!user) return res.status(400).json({ message: "user not found" });
+
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    let user =
+      (await departmentOfficerModel.findByIdAndUpdate(
+        id,
+        { $set: req.body },
+        { new: true }
+      )) ||
+      (await collegeModel.findByIdAndUpdate(
+        id,
+        { $set: req.body },
+        { new: true }
+      ));
+
+    if (!user) return res.status(400).json({ message: "User not found" });
+
+    res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
     next(error);
   }

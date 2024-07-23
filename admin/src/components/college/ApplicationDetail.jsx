@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { API } from "../../utility";
@@ -11,6 +11,7 @@ const ApplicationDetail = ({ d, sIs }) => {
   const auth = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [minute, setMinute] = useState("");
 
   const handleStatusChange = async (status) => {
     try {
@@ -19,6 +20,7 @@ const ApplicationDetail = ({ d, sIs }) => {
         {
           ...d,
           college_status: status,
+          college_minute: minute,
         }
       );
       const dis = {
@@ -48,13 +50,13 @@ const ApplicationDetail = ({ d, sIs }) => {
     }
   };
 
-    const viewFile = (file) => {
-      window.open(
-        `http://localhost:8000/files/${file}`,
-        "_blank",
-        "noreferrer"
-      );
-    };
+  const viewFile = (file) => {
+    window.open(
+      `https://aastu-edu.onrender.com/files/${file}`,
+      "_blank",
+      "noreferrer"
+    );
+  };
 
   if (!d)
     return (
@@ -64,7 +66,7 @@ const ApplicationDetail = ({ d, sIs }) => {
     );
 
   return (
-    <div className="fixed inset-0 bg-slate-600 bg-opacity-75 flex justify-center items-center p-6">
+    <div className="fixed inset-0 z-50 bg-slate-600 bg-opacity-75 flex justify-center items-center p-6">
       <div className="container mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-lg">
         <button onClick={() => sIs(false)} className="">
           <AiOutlineClose className="absolute top-5 right-5 p-1 font-extrabold bg-white text-2xl rounded-full hover:bg-slate-400 transition-all duration-100" />
@@ -72,7 +74,7 @@ const ApplicationDetail = ({ d, sIs }) => {
         <h1 className="text-2xl font-bold mb-6 sticky top-0 z-50 w-full h-[40px] bg-white dark:bg-gray-800 p-4">
           Application Details
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6 p-6 max-h-[80vh] overflow-y-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6 p-6 max-h-[60vh] overflow-y-auto">
           <div>
             <p className="text-gray-600 dark:text-gray-300">First Name</p>
             <p className="text-lg dark:text-white">{d.first_name}</p>
@@ -117,32 +119,50 @@ const ApplicationDetail = ({ d, sIs }) => {
             </p>
           </div>
           <div>
+            <p className="text-gray-600 dark:text-gray-300">College Status</p>
+            <p className='text-lg'>
+              {d?.college_minute}
+            </p>
+          </div>
+          <div>
             <p className="text-gray-600 dark:text-gray-300">Applied At</p>
             <p className="text-lg dark:text-white">
               {new Date(d.createdAt).toLocaleString()}
             </p>
           </div>
+          <div>
+            <p className="text-gray-600 dark:text-gray-300">
+              Minute before Approve/Reject
+            </p>
+            <textarea
+              onChange={(e) => setMinute(e.target.value)}
+              value={minute}
+              className="mt-2 border w-[300px] max-h-[200px] p-2"
+            ></textarea>
+          </div>
         </div>
-        <div className="flex justify-between p-4">
-          {(d.college_status === "rejected" ||
-            d.college_status === "pending") && (
-            <button
-              onClick={() => handleStatusChange("approved")}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Approve
-            </button>
-          )}
-          {(d.college_status === "approved" ||
-            d.college_status === "pending") && (
-            <button
-              onClick={() => handleStatusChange("rejected")}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Reject
-            </button>
-          )}
-        </div>
+        {minute && (
+          <div className="flex justify-between p-4">
+            {(d.college_status === "rejected" ||
+              d.college_status === "pending") && (
+              <button
+                onClick={() => handleStatusChange("approved")}
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Approve
+              </button>
+            )}
+            {(d.college_status === "approved" ||
+              d.college_status === "pending") && (
+              <button
+                onClick={() => handleStatusChange("rejected")}
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Reject
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

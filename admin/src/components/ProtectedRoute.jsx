@@ -6,7 +6,7 @@ const ProtectedRoute = ({ element: Component, allowedRoles, ...rest }) => {
   const auth = useSelector((state) => state.auth.user);
 
   const isAuthorized = auth ? true : false;
-console.log(allowedRoles)
+// console.log(allowedRoles)
   if (!isAuthorized) {
     return <Navigate to="/signin" />;
   } else if (
