@@ -14,6 +14,7 @@ import CreateStudent from "./pages/collegePage/CreateStudent";
 import EditProfile from "./pages/EditProfile";
 import { useSelector } from "react-redux";
 import CollegeDashboard from "./pages/collegePage/CollegeDashboard";
+import StudentList from "./pages/collegePage/StudentList";
 
 const App = () => {
   const auth = useSelector((state) => state.auth.user);
@@ -94,6 +95,15 @@ const App = () => {
             <ProtectedRoute
               element={EditProfile}
               allowedRoles={["College", "Department"]}
+            />
+          ),
+        },
+        {
+          path: "/students",
+          element: (
+            <ProtectedRoute
+              element={StudentList}
+              allowedRoles={["College"]}
             />
           ),
         },

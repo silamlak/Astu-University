@@ -12,6 +12,8 @@ import {
   logout,
   refresh,
   signin,
+  StudentDetail,
+  studentList,
   updateUser,
 } from "../controllers/collegeController.js";
 const router = express.Router();
@@ -25,8 +27,10 @@ router.post("/add/department", addDepartment);
 router.post("/add/department_officer", addDepartmentOfficer);
 router.post("/add/college_officer", addCollegeOfficer);
 router.get("/application/:id", applicationDetail);
+router.get("/student/:id", StudentDetail);
 router.put("/application/status/:id", applicationStatus);
 router.get("/application", applicationList);
+router.get("/student", studentList);
 router.post("/add/student", createStudent);
 router.get("/list/student", fetchapprovedUser);
 

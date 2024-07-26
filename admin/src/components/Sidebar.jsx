@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { FaUniversity, FaBuilding, FaListUl } from "react-icons/fa";
 import { IoIosCreate } from "react-icons/io";
 import { FiEdit } from "react-icons/fi";
+import { PiStudentDuotone } from "react-icons/pi";
 
 import Logo from "../assets/images/algo.png";
 
@@ -35,6 +36,11 @@ const Sidebar = () => {
       to: `/create-user-aastu`,
       label: "Create Student",
       icon: <IoIosCreate />,
+    },
+    {
+      to: `/students`,
+      label: "Student List",
+      icon: <PiStudentDuotone />,
     },
   ];
   const sidebarLinksDepartment = [

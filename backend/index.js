@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser'
 import applicantRoute from './router/applicantRoute.js'
 import collegeRoute from './router/collegeRoute.js'
 import departmentRoute from './router/departmentRoute.js'
+import studentRoute from './router/studentRoute.js'
 
 const app = express()
 
@@ -27,6 +28,7 @@ app.use(bodyParser.json())
 app.use('/api/applicant', applicantRoute)
 app.use("/api/college", collegeRoute);
 app.use("/api/department", departmentRoute);
+app.use("/api/student", studentRoute);
 
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500

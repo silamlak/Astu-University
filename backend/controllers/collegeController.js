@@ -177,7 +177,7 @@ export const applicationStatus = async (req, res, next) => {
 };
 
 export const createStudent = async (req, res, next) => {
-  // console.log(req.body);
+  console.log(req.body);
   const session = await studentsModel.startSession();
   session.startTransaction();
   try {
@@ -187,8 +187,7 @@ export const createStudent = async (req, res, next) => {
 
     // Step 2: Update applicationModel with the new student ID
     const id = req.body.applyied_id // Assuming you pass the applied ID in the request body
-    console.log(_id)
-    const up = await applicationModel.findByIdAndUpdate(_id,
+    const up = await applicationModel.findByIdAndUpdate(id,
       { $set: { student_id: newStudent._id } },
       { session }
     );
@@ -260,3 +259,48 @@ export const fetchapprovedUser = async(req, res, next) => {
   }
 }
 
+export const studentList = async (req, res, next) => {
+  try {
+    // Fetch all students
+    const students = await studentsModel.find().sort({ createdAt: -1 }).lean(); // Using .lean() to get plain JavaScript objects
+
+    // Fetch applications for each student
+    const studentListWithApplications = await Promise.all(
+      students.map(async (student) => {
+        // Fetch applications for the current student
+        const applications = await applicationModel
+          .find({ _id: student.applyied_id })
+          .lean(); // Using .lean() to get plain JavaScript objects
+
+        // Return student with applications
+        return {
+          ...student,
+          applications: applications[0], // Nest applications inside the student object
+        };
+      })
+    );
+
+    // Respond with the list of students and their corresponding applications
+    res.status(200).json(studentListWithApplications);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const StudentDetail = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const studentDetail = await studentsModel
+      .findById(id)
+      const cad = await applicationModel.find({
+        _id: studentDetail.applyied_id,
+      });
+      const studentDetailWithApplication = {
+        ...studentDetail._doc,
+        application: cad[0],
+      };
+      res.status(200).json(studentDetailWithApplication);
+  } catch (error) {
+    next(error);
+  }
+};

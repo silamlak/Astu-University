@@ -17,6 +17,15 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-});
+  status: {
+    type: String,
+    default: 'learning'
+  },
+  checkin_file: {
+    type: Array,
+    default: []
+  }
+
+} , {timestamps: true});
 
 export default mongoose.model("Students", studentSchema);
