@@ -90,6 +90,11 @@ const ApplicationTable = () => {
       ),
     },
     {
+      name: "Applied At",
+      selector: (row) => new Date(row.createdAt).toLocaleString(),
+      sortable: true,
+    },
+    {
       name: "Details",
       cell: (row) => (
         <FaInfoCircle

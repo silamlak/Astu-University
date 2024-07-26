@@ -58,6 +58,9 @@ const applicantForm = mongoose.Schema(
     college_minute: {
       type: String,
     },
+    student_id: {
+      type: String,
+    },
     confirmation_code: {
       type: String,
       required: true,

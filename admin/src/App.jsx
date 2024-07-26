@@ -80,7 +80,7 @@ const App = () => {
           ),
         },
         {
-          path: "/create-user-aastu/:id",
+          path: "/create-user-aastu",
           element: (
             <ProtectedRoute
               element={CreateStudent}
@@ -89,7 +89,7 @@ const App = () => {
           ),
         },
         {
-          path: "/edit-pro-/:id",
+          path: "/edit-pro/:id",
           element: (
             <ProtectedRoute
               element={EditProfile}

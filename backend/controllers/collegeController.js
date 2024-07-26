@@ -1,11 +1,27 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import multer from "multer";
+import util from "util";
 
 import departmentModel from "../models/departmentModel.js";
 import departmentOfficerModel from "../models/departmentOfficerModel.js";
 import collegeModel from '../models/collegeModel.js'
 import applicationModel from '../models/applicantFormModel.js'
 import studentsModel from "../models/studentsModel.js";
+
+// Multer storage setup
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./files"); // Ensure the path is correct
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + file.originalname;
+    cb(null, uniqueSuffix);
+  },
+});
+
+const upload = multer({ storage: storage }).single("college_minute");
+const uploadPromise = util.promisify(upload);
 
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
@@ -118,7 +134,6 @@ export const applicationList = async (req, res, next) => {
       .where("department_status")
       .equals("approved")
       .sort({ createdAt: -1 });
-      console.log(applicationList)
     res.status(201).json(applicationList);
   } catch (error) {
     next(error);
@@ -141,7 +156,10 @@ export const applicationDetail = async (req, res, next) => {
 
 export const applicationStatus = async (req, res, next) => {
   const {id}= req.params
-  const { college_status, college_minute } = req.body;
+    await uploadPromise(req, res);
+  const { college_status } = req.body;
+   const college_minute = req.file.filename;
+
   try {
     const applicationStatus = await applicationModel
       .findByIdAndUpdate(
@@ -159,11 +177,32 @@ export const applicationStatus = async (req, res, next) => {
 };
 
 export const createStudent = async (req, res, next) => {
+  // console.log(req.body);
+  const session = await studentsModel.startSession();
+  session.startTransaction();
   try {
-    const newDepartment = new studentsModel(req.body);
-    await newDepartment.save();
-    res.status(201).json({ message: "new student created" });
+    // Step 1: Create a new student
+    const newStudent = new studentsModel(req.body);
+    await newStudent.save({ session });
+
+    // Step 2: Update applicationModel with the new student ID
+    const id = req.body.applyied_id // Assuming you pass the applied ID in the request body
+    console.log(_id)
+    const up = await applicationModel.findByIdAndUpdate(_id,
+      { $set: { student_id: newStudent._id } },
+      { session }
+    );
+    console.log(up)
+
+    await session.commitTransaction();
+    session.endSession();
+
+    res
+      .status(201)
+      .json({ message: "New student created and application updated" });
   } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
     next(error);
   }
 };
@@ -207,3 +246,17 @@ export const updateUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const fetchapprovedUser = async(req, res, next) => {
+  try {
+        const users = await applicationModel.find({
+          department_status: "approved",
+          student_id: { $exists: false },
+        });
+        if(!users) return res.status(404).json({message: 'not found'})
+         res.status(200).json(users);
+  } catch (error) {
+    next(error)
+  }
+}
+

@@ -9,7 +9,9 @@ import { useForm } from "react-hook-form";
 
 const ApplicationListDetail = ({ d, sIs }) => {
   const auth = useSelector((state) => state.auth.user);
-  const [minute, setMinute] = useState("");
+  const [form, setForm] = useState({
+    attached_file: null,
+  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -20,14 +22,20 @@ const ApplicationListDetail = ({ d, sIs }) => {
 
   const handleStatusChange = async (status) => {
     try {
+      const formData = new FormData();
+      formData.append("department_status", status);
+      formData.append("department_minute", form.attached_file);
+
       const res = await axios.put(
         `${API}/department/application/list/detail/status/${d?._id}`,
+        formData,
         {
-          ...d,
-          department_status: status,
-          department_minute: minute,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
+
       const dis = {
         id: d._id,
         status,
@@ -35,10 +43,16 @@ const ApplicationListDetail = ({ d, sIs }) => {
       };
       dispatch(updateState(dis));
       sIs(false);
-      // Redirect to the list or another appropriate page
     } catch (error) {
       console.error("Error updating status:", error);
     }
+  };
+
+  const handleFileChange = (e) => {
+    setForm({
+      ...form,
+      attached_file: e.target.files[0],
+    });
   };
 
   const getStatusColor = (status) => {
@@ -129,14 +143,15 @@ const ApplicationListDetail = ({ d, sIs }) => {
             <p className="text-gray-600 dark:text-gray-300">
               Minute before Approve/Reject
             </p>
-            <textarea
-              onChange={(e) => setMinute(e.target.value)}
-              value={minute}
+            <input
+              type="file"
+              name="attached_file"
+              onChange={handleFileChange}
               className="mt-2 border w-[300px] max-h-[200px] p-2"
-            ></textarea>
+            />
           </div>
         </div>
-        {minute && (
+        {form.attached_file && (
           <div className="flex justify-between p-4">
             {(d.department_status === "rejected" ||
               d.department_status === "pending") && (

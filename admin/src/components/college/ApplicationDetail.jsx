@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { API } from "../../utility";
+import { API, FILEAPI } from "../../utility";
 import { useDispatch, useSelector } from "react-redux";
 import { updateState } from "../../api/features/applicationList";
 import Loading from "../Loading";
@@ -11,17 +11,18 @@ const ApplicationDetail = ({ d, sIs }) => {
   const auth = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [minute, setMinute] = useState("");
+  const [form, setForm] = useState({
+    attached_file: null,
+  });
 
   const handleStatusChange = async (status) => {
     try {
+      const formData = new FormData();
+      formData.append("college_status", status);
+      formData.append("college_minute", form.attached_file);
       const res = await axios.put(
         `${API}/college/application/status/${d._id}`,
-        {
-          ...d,
-          college_status: status,
-          college_minute: minute,
-        }
+        formData
       );
       const dis = {
         id: d._id,
@@ -30,8 +31,8 @@ const ApplicationDetail = ({ d, sIs }) => {
       };
       dispatch(updateState(dis));
       sIs(false);
-      if (status === "approved") return navigate(`/create-user-aastu/${d._id}`);
-      // Redirect to the list or another appropriate page
+      // if (status === "approved") return navigate(`/create-user-aastu/${d._id}`);
+      // // Redirect to the list or another appropriate page
     } catch (error) {
       console.error("Error updating status:", error);
     }
@@ -50,9 +51,17 @@ const ApplicationDetail = ({ d, sIs }) => {
     }
   };
 
+  
+  const handleFileChange = (e) => {
+    setForm({
+      ...form,
+      attached_file: e.target.files[0],
+    });
+  };
+
   const viewFile = (file) => {
     window.open(
-      `https://aastu-edu.onrender.com/files/${file}`,
+      `${FILEAPI}/files/${file}`,
       "_blank",
       "noreferrer"
     );
@@ -113,6 +122,17 @@ const ApplicationDetail = ({ d, sIs }) => {
             </p>
           </div>
           <div>
+            <p className="text-gray-600 dark:text-gray-300">
+              Department Minute/File
+            </p>
+            <button
+              onClick={() => viewFile(d.department_minute)}
+              className="text-lg dark:text-white"
+            >
+              {d.department_minute}
+            </button>
+          </div>
+          <div>
             <p className="text-gray-600 dark:text-gray-300">College Status</p>
             <p className={`text-lg ${getStatusColor(d.college_status)}`}>
               {d.college_status}
@@ -120,9 +140,7 @@ const ApplicationDetail = ({ d, sIs }) => {
           </div>
           <div>
             <p className="text-gray-600 dark:text-gray-300">College Status</p>
-            <p className='text-lg'>
-              {d?.college_minute}
-            </p>
+            <p className="text-lg">{d?.college_minute}</p>
           </div>
           <div>
             <p className="text-gray-600 dark:text-gray-300">Applied At</p>
@@ -134,14 +152,15 @@ const ApplicationDetail = ({ d, sIs }) => {
             <p className="text-gray-600 dark:text-gray-300">
               Minute before Approve/Reject
             </p>
-            <textarea
-              onChange={(e) => setMinute(e.target.value)}
-              value={minute}
+            <input
+              type="file"
+              name="attached_file"
+              onChange={handleFileChange}
               className="mt-2 border w-[300px] max-h-[200px] p-2"
-            ></textarea>
+            />
           </div>
         </div>
-        {minute && (
+        {form.attached_file && (
           <div className="flex justify-between p-4">
             {(d.college_status === "rejected" ||
               d.college_status === "pending") && (

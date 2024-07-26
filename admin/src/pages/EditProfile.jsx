@@ -9,13 +9,11 @@ import toast from "react-hot-toast";
 
 const fetchUser = async (id) => {
   const { data } = await axios.get(`${API}/college/get/${id}`);
-  console.log(data);
   return data;
 };
 
 const EditProfile = () => {
   const auth = useSelector((state) => state.auth.user);
-
   const {
     data: user,
     isLoading,

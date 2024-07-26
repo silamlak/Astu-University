@@ -7,6 +7,7 @@ import {
   applicationList,
   applicationStatus,
   createStudent,
+  fetchapprovedUser,
   getUser,
   logout,
   refresh,
@@ -27,5 +28,6 @@ router.get("/application/:id", applicationDetail);
 router.put("/application/status/:id", applicationStatus);
 router.get("/application", applicationList);
 router.post("/add/student", createStudent);
+router.get("/list/student", fetchapprovedUser);
 
 export default router;

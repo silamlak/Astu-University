@@ -134,6 +134,11 @@ const ApplicationListPage = () => {
       ),
     },
     {
+      name: "Applied At",
+      selector: (row) => new Date(row.createdAt).toLocaleString(),
+      sortable: true,
+    },
+    {
       name: "Details",
       button: true,
       cell: (row) => (
@@ -160,10 +165,8 @@ const ApplicationListPage = () => {
 
   return (
     <div className="container mx-auto mt-8 px-4 py-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
-        {isopen && <ApplicationDetail d={applicationDetail} sIs={setIsOpen} />}
-      <div className="text-center text-2xl font-semibold">
-        Application List
-      </div>
+      {isopen && <ApplicationDetail d={applicationDetail} sIs={setIsOpen} />}
+      <div className="text-center text-2xl font-semibold">Application List</div>
       <div className="mb-4">
         <input
           type="text"
