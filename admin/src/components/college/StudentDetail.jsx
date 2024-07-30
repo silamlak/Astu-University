@@ -245,12 +245,14 @@ const StudentDetail = ({ d, sIs }) => {
                 </p>
               </div>
             </div>
-            {d.duration?.previousDurations.length !== 0 && <button
-              onClick={changeViewHistory}
-              className=" text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 shadow-xl"
-            >
-              {viewHistory ? "Close Renewal History" : "View Renewal History"}
-            </button>}
+            {d.duration?.previousDurations.length !== 0 && (
+              <button
+                onClick={changeViewHistory}
+                className=" text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 shadow-xl"
+              >
+                {viewHistory ? "Close Renewal History" : "View Renewal History"}
+              </button>
+            )}
             {d.duration?.previousDurations && viewHistory && (
               <div className="flex flex-col gap-2 border border-gray-600 w-fit p-2 mt-4">
                 {d.duration.previousDurations?.map((history, index) => (
@@ -298,7 +300,7 @@ const StudentDetail = ({ d, sIs }) => {
                 name="status"
                 value={status}
                 onChange={handleStatussChange}
-                className="w-full p-2 border rounded-md dark:bg-gray-700 dark:text-gray-200"
+                className="w-full p-2 border bg-gray-50 text-gray-950 rounded-md dark:bg-gray-700 dark:text-gray-200"
               >
                 <option value="">Select Status</option>
                 <option value="Finished Reinstated">Finished Reinstated</option>
@@ -318,7 +320,7 @@ const StudentDetail = ({ d, sIs }) => {
                     id="file"
                     name="file"
                     onChange={handleFilesChange}
-                    className="w-full p-2 border rounded-md dark:bg-gray-700 dark:text-gray-200"
+                    className="w-full p-2 bg-gray-50 text-gray-950 border rounded-md dark:bg-gray-700 dark:text-gray-200"
                   />
                 </div>
               )}
@@ -361,7 +363,7 @@ const StudentDetail = ({ d, sIs }) => {
                   onChange={(e) =>
                     setForm({ ...form, from_date: e.target.value })
                   }
-                  className="w-full p-2 border rounded-md dark:bg-gray-700 dark:text-gray-200"
+                  className="w-full p-2 bg-gray-50 text-gray-950 border rounded-md dark:bg-gray-700 dark:text-gray-200"
                 />
               </div>
               <div className="mb-4">
@@ -379,7 +381,7 @@ const StudentDetail = ({ d, sIs }) => {
                   onChange={(e) =>
                     setForm({ ...form, to_date: e.target.value })
                   }
-                  className="w-full p-2 border rounded-md dark:bg-gray-700 dark:text-gray-200"
+                  className="w-full p-2 border bg-gray-50 text-gray-950 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 />
               </div>
               <div className="mb-4">
@@ -394,7 +396,7 @@ const StudentDetail = ({ d, sIs }) => {
                   id="attached_file"
                   name="attached_file"
                   onChange={handleFileChange}
-                  className="w-full p-2 border rounded-md dark:bg-gray-700 dark:text-gray-200"
+                  className="w-full p-2 border bg-gray-50 text-gray-950 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 />
               </div>
               {isLoading ? (

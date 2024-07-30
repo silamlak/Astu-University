@@ -172,7 +172,7 @@ return (
                 name="name"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                className="w-full px-3 py-2 border bg-gray-50 text-gray-950 border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 required
               />
             </div>
@@ -191,7 +191,7 @@ return (
                   setForm({ ...form, description: e.target.value })
                 }
                 rows="4"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                className="w-full px-3 py-2 border bg-gray-50 text-gray-950 border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 required
               ></textarea>
             </div>
@@ -243,7 +243,7 @@ return (
                 name="name"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                className="w-full px-3 py-2 bg-gray-50 text-gray-950 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 required
               />
             </div>
@@ -262,7 +262,7 @@ return (
                   setForm({ ...form, description: e.target.value })
                 }
                 rows="4"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                className="w-full px-3 py-2 bg-gray-50 text-gray-950 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 required
               ></textarea>
             </div>

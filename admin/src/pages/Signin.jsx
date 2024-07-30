@@ -99,7 +99,7 @@ const Signin = () => {
                 placeholder="Enter email"
                 value={form.email}
                 onChange={setChanges}
-                className="w-full rounded-lg px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
+                className="w-full rounded-lg px-1 bg-white text-slate-800 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
                 required
               />
             </div>
@@ -120,7 +120,7 @@ const Signin = () => {
                 placeholder="Enter password"
                 value={form.password}
                 onChange={setChanges}
-                className="w-full rounded-lg px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
+                className="w-full rounded-lg bg-white text-slate-800 px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
                 required
               />
             </div>

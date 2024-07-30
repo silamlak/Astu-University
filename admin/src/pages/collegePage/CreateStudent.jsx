@@ -129,7 +129,7 @@ const CreateStudent = () => {
                   id="username"
                   value={form.applyied_id}
                   onChange={setChanges}
-                  className="w-full rounded-lg px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
+                  className="w-full rounded-lg bg-gray-50 text-gray-950 px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
                   required
                 >
                   <option value="" disabled>
@@ -160,7 +160,7 @@ const CreateStudent = () => {
                 placeholder="Create email"
                 value={form.email}
                 onChange={setChanges}
-                className="w-full rounded-lg px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
+                className="w-full rounded-lg bg-gray-50 text-gray-950 px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
                 required
               />
             </div>
@@ -181,7 +181,7 @@ const CreateStudent = () => {
                 placeholder="Create password"
                 value={form.password}
                 onChange={setChanges}
-                className="w-full rounded-lg px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
+                className="w-full rounded-lg bg-gray-50 text-gray-950 px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
                 required
               />
             </div>
@@ -201,7 +201,7 @@ const CreateStudent = () => {
                 value={form.from}
                 onChange={setChanges}
                 min={today} // Ensure date cannot be before today
-                className="w-full rounded-lg px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
+                className="w-full rounded-lg px-1 bg-gray-50 text-gray-950 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
                 required
               />
             </div>
@@ -221,7 +221,7 @@ const CreateStudent = () => {
                 value={form.to}
                 onChange={setChanges}
                 min={today} // Ensure date cannot be before today
-                className="w-full rounded-lg px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
+                className="w-full rounded-lg px-1 bg-gray-50 text-gray-950 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
                 required
               />
             </div>
@@ -239,7 +239,7 @@ const CreateStudent = () => {
                 name="file"
                 id="file"
                 onChange={setChanges}
-                className="w-full rounded-lg px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
+                className="w-full rounded-lg px-1 bg-gray-50 text-gray-950 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
               />
             </div>
           </div>

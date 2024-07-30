@@ -199,7 +199,7 @@ const ApplicationListPage = () => {
           placeholder="Filter by name, department, phone number, or status"
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
-          className="w-[300px] p-2 border-gray-300 dark:border-gray-700 rounded dark:bg-gray-800 dark:text-white focus:outline-blue-300"
+          className="w-[300px] p-2 bg-gray-50 text-gray-950 border-gray-300 dark:border-gray-700 rounded dark:bg-gray-800 dark:text-white focus:outline-blue-300"
         />
       </div>
       <DataTable

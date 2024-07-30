@@ -106,7 +106,7 @@ const Sidebar = () => {
                 className={({ isActive }) =>
                   isActive
                     ? "flex items-center py-2 px-4 bg-slate-100 rounded text-blue-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white"
-                    : "flex items-center py-2 px-4 rounded hover:bg-slate-100 dark:hover:bg-gray-700 dark:text-white"
+                    : "flex items-center py-2 px-4 rounded hover:bg-slate-100 dark:hover:bg-gray-700 dark:text-white text-gray-700"
                 }
                 activeClassName="bg-slate-100 text-blue-500 dark:bg-gray-800 dark:text-white"
               >
@@ -132,16 +132,16 @@ const Sidebar = () => {
         >
           <button
             onClick={() => dispatch(changeSb())}
-            className="absolute top-1 right-2 text-2xl p-1"
+            className="absolute top-1 bg-slate-100 dark:bg-slate-800 right-2 text-2xl p-1"
           >
-            <AiOutlineClose />
+            <AiOutlineClose className="text-slate-800 dark:text-slate-100" />
           </button>
           <div className="p-6">
             <ul>
               <li className="mb-4">
                 <NavLink
                   to="/"
-                  className="flex items-center justify-center py-2 px-4 bg-slate-100 rounded text-blue-500 hover:bg-slate-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white"
+                  className="flex items-center justify-center py-2 px-4 bg-slate-100 rounded text-blue-500 hover:bg-slate-100 dark:bg-gray-800 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white"
                 >
                   <img src={Logo} className="mr-4 h-40 w-full" alt="Logo" />
                   <span className="hidden md:inline lg:inline"></span>
@@ -154,7 +154,7 @@ const Sidebar = () => {
                     className={({ isActive }) =>
                       isActive
                         ? "flex items-center py-2 px-4 bg-slate-100 rounded text-blue-500 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white"
-                        : "flex items-center py-2 px-4 rounded hover:bg-slate-100 dark:hover:bg-gray-700 dark:text-white"
+                        : "flex items-center py-2 px-4 rounded hover:bg-slate-100 dark:hover:bg-gray-700 dark:text-white  text-gray-700"
                     }
                     activeClassName="bg-slate-100 text-blue-500 dark:bg-gray-800 dark:text-white"
                   >

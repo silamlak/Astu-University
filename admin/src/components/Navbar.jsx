@@ -29,9 +29,9 @@ const Navbar = () => {
         <div className="flex flex-wrap items-center justify-between mx-auto p-4">
           <button
             onClick={() => dispatch(changeSb())}
-            className="hidden max-lg:flex text-2xl"
+            className="hidden max-lg:flex text-2xl bg-slate-100 dark:bg-gray-800"
           >
-            <AiOutlineMenu />
+            <AiOutlineMenu className="text-slate-800 dark:text-slate-100" />
           </button>
           <Link
             to="/"

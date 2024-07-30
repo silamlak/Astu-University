@@ -82,7 +82,7 @@ const ApplicationListDetail = ({ d, sIs }) => {
     <div className="fixed inset-0 bg-slate-600 bg-opacity-75 z-50 dark:bg-slate-900 dark:bg-opacity-75 flex justify-center items-center p-6">
       <div className="container mx-auto bg-white dark:bg-gray-800 shadow-lg z-50 rounded-lg">
         <button onClick={() => sIs(false)} className="">
-          <AiOutlineClose className="absolute top-5 right-5 p-1 font-extrabold bg-white text-2xl rounded-full hover:bg-slate-400 transition-all duration-100" />
+          <AiOutlineClose className="absolute top-5 right-5 p-1 font-extrabold bg-white text-slate-800 text-2xl rounded-full hover:bg-slate-400 transition-all duration-100" />
         </button>
         <h1 className="text-2xl font-bold mb-6 sticky top-0 z-50 w-full text-gray-600 dark:text-gray-300 h-[40px] bg-white dark:bg-gray-800 p-4">
           Application Details

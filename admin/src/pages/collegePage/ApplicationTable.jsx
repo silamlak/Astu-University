@@ -186,7 +186,7 @@ const ApplicationTable = () => {
           placeholder="Filter by name, department, or status..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
-          className="p-2 border border-gray-300 dark:border-gray-700 rounded dark:bg-gray-800 dark:text-white w-full"
+          className="p-2 border bg-gray-50 text-gray-950 border-gray-300 dark:border-gray-700 rounded dark:bg-gray-800 dark:text-white w-full"
         />
       </div>
       <DataTable
@@ -195,7 +195,7 @@ const ApplicationTable = () => {
         pagination
         highlightOnHover
         responsive
-        theme={theme === 'dark' ? 'dark': 'solarized'}
+        theme={theme === "dark" ? "dark" : "solarized"}
         noDataComponent="No data available"
         className="dark:text-gray-100"
       />

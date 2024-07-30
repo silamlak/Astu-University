@@ -84,7 +84,7 @@ toast.success(
              id="email"
              value={user.email}
              disabled
-             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             className="shadow bg-gray-50 text-gray-950 appearance-none border rounded w-full py-2 px-3 dark:text-gray-200 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
            />
          </div>
          <div className="mb-4">
@@ -98,7 +98,7 @@ toast.success(
              type="password"
              id="password"
              {...register("password", { required: true, minLength: 6 })}
-             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             className="shadow bg-gray-50 text-gray-950  appearance-none border rounded w-full py-2 px-3 dark:text-gray-200 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
            />
            {errors.password && (
              <p className="text-red-500 text-xs italic">

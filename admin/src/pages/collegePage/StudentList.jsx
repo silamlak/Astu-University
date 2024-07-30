@@ -177,7 +177,7 @@ const StudentList = () => {
           placeholder="Filter by name, department, or status..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
-          className="p-2 border border-gray-300 rounded dark:border-gray-700 dark:bg-gray-800 dark:text-white w-full"
+          className="p-2 border bg-gray-50 text-gray-950 border-gray-300 rounded dark:border-gray-700 dark:bg-gray-800 dark:text-white w-full"
         />
       </div>
       <DataTable

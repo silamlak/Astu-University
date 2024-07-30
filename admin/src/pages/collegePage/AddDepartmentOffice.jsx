@@ -237,7 +237,7 @@ return (
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                className="w-full px-3 bg-gray-50 text-gray-950 py-2 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 required
               />
             </div>
@@ -254,7 +254,7 @@ return (
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                className="w-full px-3 py-2 bg-gray-50 text-gray-950 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 required
               />
             </div>
@@ -272,7 +272,7 @@ return (
                   name="password"
                   value={form.password}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                  className="w-full px-3 py-2 border bg-gray-50 text-gray-950 border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
                   required
                 />
               </div>
@@ -290,7 +290,7 @@ return (
                 name="phone_no"
                 value={form.phone_no}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                className="w-full px-3 py-2 border bg-gray-50 text-gray-950 border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 required
               />
             </div>
@@ -306,7 +306,7 @@ return (
                 name="department"
                 value={form.department}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                className="w-full px-3 py-2 border bg-gray-50 text-gray-950 border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 required
               >
                 <option value="">Select Department</option>
@@ -364,7 +364,7 @@ return (
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                className="w-full px-3 py-2 bg-gray-50 text-gray-950 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 required
               />
             </div>
@@ -381,7 +381,7 @@ return (
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                className="w-full px-3 py-2 bg-gray-50 text-gray-950 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 required
               />
             </div>
@@ -399,7 +399,7 @@ return (
                   name="password"
                   value={form.password}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                  className="w-full px-3 py-2 bg-gray-50 text-gray-950 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
                   required
                 />
               </div>
@@ -417,7 +417,7 @@ return (
                 name="phone_no"
                 value={form.phone_no}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                className="w-full px-3 py-2 bg-gray-50 text-gray-950 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 required
               />
             </div>
@@ -433,7 +433,7 @@ return (
                 name="department"
                 value={form.department}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                className="w-full px-3 py-2 bg-gray-50 text-gray-950 border border-gray-300 dark:border-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-200"
                 required
               >
                 <option value="">Select Department</option>
@@ -461,6 +461,37 @@ return (
               </button>
             </div>
           </form>
+        </div>
+      </div>
+    )}
+
+    {showDeleteConfirm && (
+      <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md relative">
+          <button onClick={cancelDelete} className="absolute top-2 right-2">
+            <AiOutlineClose className="text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-200 transition-colors" />
+          </button>
+          <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+            Confirm Deletion
+          </h2>
+          <p className="mb-4 text-gray-800 dark:text-gray-200">
+            Are you sure you want to delete this department?
+          </p>
+          <div className="flex justify-end gap-2">
+            <button
+              onClick={confirmDelete}
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded dark:bg-red-600 dark:hover:bg-red-700"
+              disabled={isDeleting}
+            >
+              {isDeleting ? <Loading /> : "Delete"}
+            </button>
+            <button
+              onClick={cancelDelete}
+              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded dark:bg-gray-600 dark:hover:bg-gray-700"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     )}
