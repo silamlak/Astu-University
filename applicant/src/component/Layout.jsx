@@ -5,14 +5,14 @@ import Footbar from './Footbar';
 
 const Layout = () => {
   return (
-    <div className="font-rb min-h-screen">
+    <div className="font-rb  min-h-screen">
       <Navbar />
-      <div>
+      {/* <div> */}
         <div className="mx-autom bg-white">
           <Outlet />
         </div>
         <Footbar />
-      </div>
+      {/* </div> */}
     </div>
   );
 }

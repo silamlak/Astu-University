@@ -144,14 +144,14 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-8 py-20 bg-white">
+    <div className="p-8 py-10 bg-slate-100">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-row-reverse justify-center items-center gap-20 max-xl:gap-14 max-lg:gap-4">
-          <img
+          {/* <img
             src={Form}
             className="w-[400px] h-[400px] max-md:hidden"
             alt="Form"
-          />
+          /> */}
           <form
             onSubmit={handleSubmit}
             className="p-6 shadow-md bg-white rounded-xl"
@@ -167,7 +167,7 @@ const Dashboard = () => {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4 max-lg:grid-cols-1">
+            <div className="grid grid-cols-3 gap-4 max-lg:grid-cols-2 max-md:grid-cols-1">
               <div className="mb-4 relative">
                 <label className="block text-gray-700">First Name</label>
                 <div className="flex flex-col">
@@ -380,7 +380,7 @@ const Dashboard = () => {
 
               <div className="mb-4 relative">
                 <label className="block text-gray-700">Attach File</label>
-                <div className="flex items-center">
+                <div className="flex  items-center">
                   <span className="absolute pl-3 text-gray-400">
                     <FaPaperclip />
                   </span>
@@ -408,19 +408,19 @@ const Dashboard = () => {
                   </ul>
                 </p>
               </div>
+              <button
+                disabled={isLoading}
+                type="submit"
+                className="group mt-8 ml-10 w-fit h-fit flex items-center justify-center gap-4 bg-blue-700 hover:bg-blue-700 hover:font-bb transition-all duration-150 text-white border border-blue-700 py-2 px-4 rounded-lg text-right"
+              >
+                <p className="tracking-wider">Submit</p>
+                {isLoading ? (
+                  <Loading color="ffffff" />
+                ) : (
+                  <FaArrowRight className="text-sm" />
+                )}
+              </button>
             </div>
-            <button
-              disabled={isLoading}
-              type="submit"
-              className="group flex items-center justify-center gap-4 bg-blue-700 hover:bg-blue-700 hover:font-bb transition-all duration-150 text-white border border-blue-700 py-2 px-4 rounded-lg text-center"
-            >
-              <p className="tracking-wider">Submit</p>
-              {isLoading ? (
-                <Loading color="ffffff" />
-              ) : (
-                <FaArrowRight className="text-sm" />
-              )}
-            </button>
           </form>
         </div>
       </div>

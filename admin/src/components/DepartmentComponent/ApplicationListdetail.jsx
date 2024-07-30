@@ -144,7 +144,7 @@ const ApplicationListDetail = ({ d, sIs }) => {
               {new Date(d.createdAt).toLocaleString()}
             </p>
           </div>
-          <div>
+          {d.department_status === 'pending' && <div>
             <p className="text-gray-600 dark:text-gray-100">
               Minute before Approve/Reject
             </p>
@@ -154,7 +154,7 @@ const ApplicationListDetail = ({ d, sIs }) => {
               onChange={handleFileChange}
               className="mt-2 border w-[300px] text-gray-600 dark:text-gray-300 max-h-[200px] p-2"
             />
-          </div>
+          </div>}
         </div>
         {form.attached_file && (
           <div className="flex justify-between p-4">

@@ -163,7 +163,7 @@ return (
                   ) : (
                     <button
                       onClick={() => viewFile(data[index].checkIn_file)}
-                      className="px-4 py-1 text-small text-blue-500 dark:text-blue-400 hover:underline"
+                      className="px-4 py-1 bg-slate-300 dark:bg-slate-600 text-small text-blue-500 dark:text-blue-400 hover:underline"
                     >
                       View File
                     </button>
@@ -217,7 +217,7 @@ return (
                   Upload File
                 </h3>
                 <button
-                  className="dark:text-gray-200 dark:bg-gray-800 "
+                  className="dark:text-gray-200 bg-slate-200 text-slate-700 dark:bg-gray-800 "
                   onClick={() => setIsPopupOpen(false)}
                 >
                   <IoCloseSharp />

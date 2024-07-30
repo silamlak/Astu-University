@@ -79,7 +79,7 @@ const ApplicationDetail = ({ d, sIs }) => {
     <div className="fixed inset-0 z-50 bg-slate-600 bg-opacity-75 flex justify-center items-center p-6">
       <div className="container mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-lg">
         <button onClick={() => sIs(false)} className="">
-          <AiOutlineClose className="absolute top-5 right-5 p-1 font-extrabold bg-white text-2xl rounded-full hover:bg-slate-400 transition-all duration-100" />
+          <AiOutlineClose className="absolute top-5 right-5 p-1 font-extrabold bg-white text-slate-700 text-2xl rounded-full hover:bg-slate-400 transition-all duration-100" />
         </button>
         <h1 className="text-2xl font-bold mb-6 sticky top-0 z-50 w-full h-[40px] bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-100 p-4">
           Application Details
@@ -119,7 +119,7 @@ const ApplicationDetail = ({ d, sIs }) => {
             <p className="text-gray-600 dark:text-gray-100">Attached File</p>
             <button
               onClick={() => viewFile(d.attached_file)}
-              className="text-md dark:text-white dark:bg-slate-800"
+              className="text-md text-slate-800 dark:text-white dark:bg-slate-800"
             >
               View File
             </button>
@@ -138,7 +138,7 @@ const ApplicationDetail = ({ d, sIs }) => {
             </p>
             <button
               onClick={() => viewFile(d.department_minute)}
-              className="text-md dark:text-white  dark:bg-slate-800"
+              className="text-md text-slate-800 dark:text-white  dark:bg-slate-800"
             >
               View File
             </button>
@@ -159,7 +159,7 @@ const ApplicationDetail = ({ d, sIs }) => {
               {new Date(d.createdAt).toLocaleString()}
             </p>
           </div>
-          <div>
+          {d.college_status === "pending" && <div>
             <p className="text-gray-600 dark:text-gray-300">
               Minute before Approve/Reject
             </p>
@@ -169,7 +169,7 @@ const ApplicationDetail = ({ d, sIs }) => {
               onChange={handleFileChange}
               className="mt-2 border w-[300px] text-gray-600 dark:text-gray-300 max-h-[200px] p-2"
             />
-          </div>
+          </div>}
         </div>
         {form.attached_file && (
           <div className="flex justify-between p-4">

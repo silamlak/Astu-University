@@ -83,7 +83,7 @@ const ApplicationTable = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case "approved":
-        return "bg-green-100 text-green-800 dark:bg-green-600 dark:text-green-100";
+        return "bg-green-500 text-slate-100 dark:bg-green-800 dark:text-green-100";
       case "rejected":
         return "bg-red-100 text-red-800 dark:bg-red-600 dark:text-red-100";
       case "pending":

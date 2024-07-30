@@ -34,8 +34,10 @@ const CheckPage = () => {
   };
 
   return (
-    <div className="container mx-auto pt-12 flex flex-col items-center gap-6">
-      <h1 className="text-2xl font-bold mb-4">Check Your Application Status</h1>
+    <div className="container mx-auto pt-8 flex flex-col items-center gap-6">
+      <h1 className="text-2xl text-slate-800 font-bold mb-4">
+        Check Your Application Status
+      </h1>
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="mb-2">
           <label
@@ -49,7 +51,7 @@ const CheckPage = () => {
               id="code"
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              className="w-ful dark:text-slate-950 pl-2 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+              className="w-ful dark:text-slate-950  bg-slate-100 pl-2 p-2 border border-gray-300 rounded-lg focus:outline-none mt-1"
               required
             />
             <button
@@ -70,11 +72,9 @@ const CheckPage = () => {
 
       {isError ? (
         <div className="my-20 flex flex-col gap-6 items-center justify-center">
+          <span className="text-red-500 font-semibold">Invalid Code</span>
           <span className="text-red-500 font-semibold">
-            Invalid Code
-          </span>
-          <span className="text-red-500 font-semibold">
-            <img src={NoData} className="w-[400px] h-[300px]" />
+            {/* <img src={NoData} className="w-[400px] h-[300px]" /> */}
           </span>
         </div>
       ) : details ? (
@@ -121,7 +121,7 @@ const CheckPage = () => {
       ) : (
         !isError && (
           <div className="my-20 flex items-center justify-center">
-            <img src={Wait} className="w-[400px] h-[350px]" />
+            {/* <img src={Wait} className="w-[400px] h-[350px]" /> */}
           </div>
         )
       )}

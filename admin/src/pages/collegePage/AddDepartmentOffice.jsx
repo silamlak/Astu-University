@@ -143,7 +143,7 @@ const AddDepartmentOffice = () => {
       setEditMode(false);
     };
 
-  if (isDepartmentsLoading || isOfficersLoading) return <Loading />;
+  if (isDepartmentsLoading || isOfficersLoading) return <div className="w-full flex justify-center"><Loading /></div>;
 
 return (
   <div className="p-6 dark:bg-gray-900">
@@ -162,51 +162,53 @@ return (
     <table className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-md">
       <thead className="bg-gray-200 dark:bg-gray-700">
         <tr>
-          <th className="py-2 px-4 border-b dark:border-gray-600 text-gray-800 dark:text-gray-100">
+          <th className="py-2 px-4 border-b text-start dark:border-gray-600 text-gray-800 dark:text-gray-100">
             Name
           </th>
-          <th className="py-2 px-4 border-b dark:border-gray-600 text-gray-800 dark:text-gray-100">
+          <th className="py-2 px-4 border-b text-start dark:border-gray-600 text-gray-800 dark:text-gray-100">
             Email
           </th>
-          <th className="py-2 px-4 border-b dark:border-gray-600 text-gray-800 dark:text-gray-100">
+          <th className="py-2 px-4 border-b text-start dark:border-gray-600 text-gray-800 dark:text-gray-100">
             Phone Number
           </th>
-          <th className="py-2 px-4 border-b dark:border-gray-600 text-gray-800 dark:text-gray-100">
+          <th className="py-2 px-4 border-b text-start dark:border-gray-600 text-gray-800 dark:text-gray-100">
             Department
           </th>
-          <th className="py-2 px-4 border-b dark:border-gray-600 text-gray-800 dark:text-gray-100">
+          <th className="py-2 px-4 border-b text-start dark:border-gray-600 text-gray-800 dark:text-gray-100">
             Actions
           </th>
         </tr>
       </thead>
       <tbody>
         {officers.map((officer) => (
-          <tr key={officer._id}>
-            <td className="py-2 px-4 border-b dark:border-gray-600 text-gray-800 dark:text-gray-100">
+          <tr className="border-b" key={officer._id}>
+            <td className="py-2 px-4 dark:border-gray-600 text-gray-800 dark:text-gray-100">
               {officer.name}
             </td>
-            <td className="py-2 px-4 border-b dark:border-gray-600 text-gray-800 dark:text-gray-100">
+            <td className="py-2 px-4 dark:border-gray-600 text-gray-800 dark:text-gray-100">
               {officer.email}
             </td>
-            <td className="py-2 px-4 border-b dark:border-gray-600 text-gray-800 dark:text-gray-100">
+            <td className="py-2 px-4 dark:border-gray-600 text-gray-800 dark:text-gray-100">
               {officer.phone_no}
             </td>
-            <td className="py-2 px-4 border-b dark:border-gray-600 text-gray-800 dark:text-gray-100">
+            <td className="py-2 px-4 dark:border-gray-600 text-gray-800 dark:text-gray-100">
               {officer.department}
             </td>
-            <td className="py-2 px-4 border-b dark:border-gray-600 flex gap-2 text-gray-800 dark:text-gray-100">
-              <button
-                onClick={() => handleEdit(officer)}
-                className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-              >
-                <AiOutlineEdit />
-              </button>
-              <button
-                onClick={() => handleDelete(officer._id)}
-                className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-              >
-                <AiOutlineDelete />
-              </button>
+            <td className="py-2 px-4 dark:border-gray-600  text-gray-800 dark:text-gray-100">
+              <div className="flex gap-3">
+                <button
+                  onClick={() => handleEdit(officer)}
+                  className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                >
+                  <AiOutlineEdit />
+                </button>
+                <button
+                  onClick={() => handleDelete(officer._id)}
+                  className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                >
+                  <AiOutlineDelete />
+                </button>
+              </div>
             </td>
           </tr>
         ))}

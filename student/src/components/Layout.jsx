@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 
 const Layout = () => {
   return (
-    <div className="dark:bg-gray-900 min-h-screen">
+    <div className="bg-white dark:bg-gray-900 min-h-screen">
       <Toaster />
       <Navbar />
       <main className="overflow-auto">

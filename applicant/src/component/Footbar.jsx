@@ -4,7 +4,7 @@ import { TITLE } from "../utils";
 import { Link } from "react-router-dom";
 const Footbar = () => {
   return (
-    <div className="">
+    <div className="sticky left-0 right-0 bottom-0 ">
       <footer class="bg-blue-900 border-t-4 border-t-yellow-600">
         <div class="mx-auto w-full max-w-screen-2xl p-4 py-6">
           <div class="sm:flex sm:items-center sm:justify-between">

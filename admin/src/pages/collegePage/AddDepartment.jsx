@@ -94,7 +94,7 @@ const AddDepartment = () => {
     setEditMode(false);
   }
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return<div className="w-full justify-center flex"> <Loading /></div>;
 
 return (
   <div className="p-6 bg-white dark:bg-gray-900">
@@ -113,35 +113,40 @@ return (
     <table className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-md">
       <thead className="bg-gray-200 dark:bg-gray-700">
         <tr>
-          <th className="py-2 px-4 border-b text-gray-800 dark:text-gray-200">
+          <th className="py-2 px-4 border-b text-start text-gray-800 dark:text-gray-200">
             Name
           </th>
-          <th className="py-2 px-4 border-b text-gray-800 dark:text-gray-200">
+          <th className="py-2 px-4 border-b text-start text-gray-800 dark:text-gray-200">
             Description
           </th>
-          <th className="py-2 px-4 border-b text-gray-800 dark:text-gray-200">
+          <th className="py-2 px-4 border-b text-start text-gray-800 dark:text-gray-200">
             Actions
           </th>
         </tr>
       </thead>
       <tbody>
         {departments.map((department) => (
-          <tr key={department._id} className="text-gray-800 dark:text-gray-200">
-            <td className="py-2 px-4 border-b">{department.name}</td>
-            <td className="py-2 px-4 border-b">{department.description}</td>
-            <td className="py-2 px-4 border-b flex gap-2">
-              <button
-                onClick={() => handleEdit(department)}
-                className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-              >
-                <AiOutlineEdit />
-              </button>
-              <button
-                onClick={() => handleDelete(department._id)}
-                className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-              >
-                <AiOutlineDelete />
-              </button>
+          <tr
+            key={department._id}
+            className="text-gray-800  border-b dark:text-gray-200"
+          >
+            <td className="py-2 px-4">{department.name}</td>
+            <td className="py-2 px-4">{department.description}</td>
+            <td className="py-2 px-4">
+              <div className="flex gap-4">
+                <button
+                  onClick={() => handleEdit(department)}
+                  className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                >
+                  <AiOutlineEdit />
+                </button>
+                <button
+                  onClick={() => handleDelete(department._id)}
+                  className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                >
+                  <AiOutlineDelete />
+                </button>
+              </div>
             </td>
           </tr>
         ))}
