@@ -280,7 +280,7 @@ const StudentDetail = ({ d, sIs }) => {
               )}
             </div>
 
-            {d.status === "learing" && (
+            {d.status && (
               <div className="flex gap-2 p-4">
                 <div className="relative">
                   <label
@@ -316,6 +316,7 @@ const StudentDetail = ({ d, sIs }) => {
                       <input
                         type="file"
                         id="file"
+                        accept=".pdf"
                         name="file"
                         onChange={handleFilesChange}
                         className="w-full p-2 bg-gray-50 text-gray-950 border rounded-md dark:bg-gray-700 dark:text-gray-200"
@@ -446,6 +447,7 @@ const StudentDetail = ({ d, sIs }) => {
                 <input
                   type="file"
                   id="attached_file"
+                  accept=".pdf"
                   name="attached_file"
                   onChange={handleFileChange}
                   className="w-full p-2 border bg-gray-50 text-gray-950 rounded-md dark:bg-gray-700 dark:text-gray-200"

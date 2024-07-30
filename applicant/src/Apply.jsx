@@ -386,7 +386,7 @@ const Dashboard = () => {
                   </span>
                   <input
                     type="file"
-                    multiple
+                    accept=".pdf"
                     name="attached_file"
                     onChange={handleFileChange}
                     className="w-full dark:text-slate-950 pl-10 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"

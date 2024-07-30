@@ -230,6 +230,7 @@ return (
               <input
                 name="attached_file"
                 type="file"
+                accept=".pdf"
                 onChange={handleFileChange}
                 className="block w-full text-sm text-gray-900 dark:text-gray-100"
               />

@@ -144,17 +144,20 @@ const ApplicationListDetail = ({ d, sIs }) => {
               {new Date(d.createdAt).toLocaleString()}
             </p>
           </div>
-          {d.department_status === 'pending' && <div>
-            <p className="text-gray-600 dark:text-gray-100">
-              Minute before Approve/Reject
-            </p>
-            <input
-              type="file"
-              name="attached_file"
-              onChange={handleFileChange}
-              className="mt-2 border w-[300px] text-gray-600 dark:text-gray-300 max-h-[200px] p-2"
-            />
-          </div>}
+          {d.department_status === "pending" && (
+            <div>
+              <p className="text-gray-600 dark:text-gray-100">
+                Minute before Approve/Reject
+              </p>
+              <input
+                type="file"
+                accept=".pdf"
+                name="attached_file"
+                onChange={handleFileChange}
+                className="mt-2 border w-[300px] text-gray-600 dark:text-gray-300 max-h-[200px] p-2"
+              />
+            </div>
+          )}
         </div>
         {form.attached_file && (
           <div className="flex justify-between p-4">

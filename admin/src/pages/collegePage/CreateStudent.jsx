@@ -231,12 +231,13 @@ const CreateStudent = () => {
               htmlFor="file"
               className="block text-gray-700 dark:text-gray-300 transition-colors"
             >
-              File Upload
+              Agreement File
             </label>
             <div className="flex items-center dark:bg-gray-700 border rounded-lg dark:border-gray-700 transition-colors">
               <input
                 type="file"
                 name="file"
+                accept=".pdf"
                 id="file"
                 onChange={setChanges}
                 className="w-full rounded-lg px-1 bg-gray-50 text-gray-950 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
