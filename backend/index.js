@@ -25,7 +25,7 @@ app.use(cors());
 app.use(cookieParser())
 app.use(bodyParser.json())
 
-app.use('/files', express.static('./files'))
+app.use('/files', express.static('files'))
 app.use('/api/applicant', applicantRoute)
 app.use("/api/college", collegeRoute);
 app.use("/api/department", departmentRoute);

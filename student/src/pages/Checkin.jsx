@@ -123,7 +123,11 @@ const FileUpload = () => {
   };
 
     const viewFile = (file) => {
-      window.open(`http://localhost:8000/files/${file}`, "_blank", "noreferrer");
+      window.open(
+        `https://aastu-edu.onrender.com/files/${file}`,
+        "_blank",
+        "noreferrer"
+      );
     };
 
 return (
