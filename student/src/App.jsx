@@ -6,6 +6,7 @@ import Checkin from "./pages/Checkin";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
+import RemainingPage from "./pages/RemainingPage";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const App = () => {
         {
           path: "/check-in",
           element: <Checkin />,
+        },
+        {
+          path: "/remaining-data",
+          element: <RemainingPage />,
         },
       ],
     },

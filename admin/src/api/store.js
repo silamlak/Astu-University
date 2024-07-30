@@ -4,6 +4,8 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import authReducer from "./features/auth";
 import applicationReducer from "./features/applicationList";
 import studentReducer from "./features/studentList";
+import themeSlice from "./features/themeSlice";
+import sidebar from "./features/sidebar";
 
 // Define the persist configuration
 const persistConfig = {
@@ -16,6 +18,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   application: applicationReducer,
   student: studentReducer,
+  theme: themeSlice,
+  sb: sidebar,
 });
 
 // Create a persisted reducer

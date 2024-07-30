@@ -1,0 +1,13 @@
+/* styles.css or a similar CSS file */
+.dark-mode .rdt_TableBody {
+  background-color: #2d2d2d; /* Dark background for table body */
+}
+.dark-mode .rdt_TableHead {
+  background-color: #1e1e1e; /* Dark background for table header */
+}
+.dark-mode .rdt_TableRow {
+  border-bottom: 1px solid #444; /* Dark border for table rows */
+}
+.dark-mode .rdt_TableCell {
+  color: #f5f5f5; /* Light text color for table cells */
+}

@@ -2,9 +2,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { logout } from "../api/features/auth";
-import { FaSignOutAlt, FaHome } from "react-icons/fa";
-import Logo from "../assets/images/algo.png";
-import { removeApplication } from "../api/features/applicationList";
+import { FaSignOutAlt } from "react-icons/fa";
+import Switcher from "./Switcher";
+import { changeSb } from "../api/features/sidebar";
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+
 
 const Navbar = () => {
   const location = useLocation();
@@ -25,19 +27,29 @@ const Navbar = () => {
     <div className="sticky top-0">
       <nav className="bg-white border-gray-200 dark:bg-gray-900 shadow-lg transition-colors duration-200">
         <div className="flex flex-wrap items-center justify-between mx-auto p-4">
+          <button
+            onClick={() => dispatch(changeSb())}
+            className="hidden max-lg:flex text-2xl"
+          >
+            <AiOutlineMenu />
+          </button>
           <Link
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            {/* <img src={Logo} alt="Logo" className="w-14 h-14" />
+            {/* Uncomment the logo if needed
+            <img src={Logo} alt="Logo" className="w-14 h-14" />
             <span className="text-xl font-semibold text-gray-900 dark:text-white">
               Home
             </span> */}
           </Link>
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul className="font-medium flex flex-col md:p-0 border-gray-100 rounded-lg md:flex-row">
+            <ul className="font-medium flex flex-col gap-4 md:p-0 border-gray-100 rounded-lg md:flex-row">
+              <div className="flex items-center gap-2">
+                <Switcher />
+              </div>
               <li
-                className="flex items-center py-1 cursor-pointer hover:text-slate-900 dark:hover:text-white"
+                className="flex items-center py-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white hover:text-slate-900 dark:hover:text-white transition-colors duration-200"
                 onClick={handleLogout}
               >
                 <FaSignOutAlt className="mr-2" />

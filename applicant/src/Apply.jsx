@@ -16,9 +16,11 @@ import {
 import Form from "./assets/image/form.svg";
 import Curve from "./assets/image/curve.png";
 import Loading from "./component/Loading";
+import { useEffect } from "react";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [lists, setLists] = useState()
   const [form, setForm] = useState({
     first_name: "",
     last_name: "",
@@ -33,6 +35,16 @@ const Dashboard = () => {
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      const response = await axios.get(
+        `https://aastu-edu.onrender.com/api/college/departmet`
+      );
+      setLists(response.data);
+    };
+    fetchDepartments()
+  })
 
   const validate = () => {
     const errors = {};
@@ -235,18 +247,11 @@ const Dashboard = () => {
                       className="w-full pl-10 p-2 dark:text-slate-950 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
                     >
                       <option value="">Select Department</option>
-                      <option value="Biotechnology">Biotechnology</option>
-                      <option value="Food Science">Food Science</option>
-                      <option value="Applied Nutrition">
-                        Applied Nutrition
-                      </option>
-                      <option value="Industrial Chemistry">
-                        Industrial Chemistry
-                      </option>
-                      <option value="Geology">Geology</option>
-                      <option value=" Maths/Physics/Statistics">
-                        Maths/Physics/Statistics
-                      </option>
+                      {lists?.map((dept) => (
+                        <option key={dept.name} value={dept.name}>
+                          {dept.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   {errors.department && (

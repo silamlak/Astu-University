@@ -18,6 +18,7 @@ const uploadPromise = util.promisify(upload);
 
 export const applicationList = async (req, res, next) => {
   const role = req.headers["role"];
+  console.log(role)
   try {
     const applicationList = await applicationModel
       .find()

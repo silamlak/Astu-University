@@ -20,6 +20,7 @@ const ApplicationDetail = ({ d, sIs }) => {
       const formData = new FormData();
       formData.append("college_status", status);
       formData.append("college_minute", form.attached_file);
+      console.log(formData)
       const res = await axios.put(
         `${API}/college/application/status/${d._id}`,
         formData
@@ -41,7 +42,7 @@ const ApplicationDetail = ({ d, sIs }) => {
   const getStatusColor = (status) => {
     switch (status) {
       case "approved":
-        return "text-green-800";
+        return "text-green-600";
       case "rejected":
         return "text-red-800";
       case "pending":
@@ -80,71 +81,81 @@ const ApplicationDetail = ({ d, sIs }) => {
         <button onClick={() => sIs(false)} className="">
           <AiOutlineClose className="absolute top-5 right-5 p-1 font-extrabold bg-white text-2xl rounded-full hover:bg-slate-400 transition-all duration-100" />
         </button>
-        <h1 className="text-2xl font-bold mb-6 sticky top-0 z-50 w-full h-[40px] bg-white dark:bg-gray-800 p-4">
+        <h1 className="text-2xl font-bold mb-6 sticky top-0 z-50 w-full h-[40px] bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-100 p-4">
           Application Details
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6 p-6 max-h-[60vh] overflow-y-auto">
           <div>
-            <p className="text-gray-600 dark:text-gray-300">First Name</p>
-            <p className="text-lg dark:text-white">{d.first_name}</p>
+            <p className="text-gray-600 dark:text-gray-100">First Name</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              {d.first_name}
+            </p>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">Last Name</p>
-            <p className="text-lg dark:text-white">{d.last_name}</p>
+            <p className="text-gray-600 dark:text-gray-100">Last Name</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              {d.last_name}
+            </p>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">Email</p>
-            <p className="text-lg dark:text-white">{d.email}</p>
+            <p className="text-gray-600 dark:text-gray-100">Email</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              {d.email}
+            </p>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">Phone Number</p>
-            <p className="text-lg dark:text-white">{d.phone_no}</p>
+            <p className="text-gray-600 dark:text-gray-100">Phone Number</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              {d.phone_no}
+            </p>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">Department</p>
-            <p className="text-lg dark:text-white">{d.department}</p>
+            <p className="text-gray-600 dark:text-gray-100">Department</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              {d.department}
+            </p>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">Attached File</p>
+            <p className="text-gray-600 dark:text-gray-100">Attached File</p>
             <button
               onClick={() => viewFile(d.attached_file)}
-              className="text-lg dark:text-white"
+              className="text-md dark:text-white dark:bg-slate-800"
             >
-              {d.attached_file}
+              View File
             </button>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className="text-gray-600 dark:text-gray-100">
               Department Status
             </p>
-            <p className={`text-lg ${getStatusColor(d.department_status)}`}>
+            <p className={`text-sm ${getStatusColor(d.department_status)}`}>
               {d.department_status}
             </p>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className="text-gray-600 dark:text-gray-100">
               Department Minute/File
             </p>
             <button
               onClick={() => viewFile(d.department_minute)}
-              className="text-lg dark:text-white"
+              className="text-md dark:text-white  dark:bg-slate-800"
             >
-              {d.department_minute}
+              View File
             </button>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">College Status</p>
-            <p className={`text-lg ${getStatusColor(d.college_status)}`}>
+            <p className="text-gray-600 dark:text-gray-100">College Status</p>
+            <p className={`text-sm ${getStatusColor(d.college_status)}`}>
               {d.college_status}
             </p>
           </div>
+          {/* <div>
+            <p className="text-gray-600 dark:text-gray-300">College Minut</p>
+            <button className="text-lg">{d?.college_minute}</button>
+          </div> */}
           <div>
-            <p className="text-gray-600 dark:text-gray-300">College Status</p>
-            <p className="text-lg">{d?.college_minute}</p>
-          </div>
-          <div>
-            <p className="text-gray-600 dark:text-gray-300">Applied At</p>
-            <p className="text-lg dark:text-white">
+            <p className="text-gray-600 dark:text-gray-100">Applied At</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
               {new Date(d.createdAt).toLocaleString()}
             </p>
           </div>
@@ -156,7 +167,7 @@ const ApplicationDetail = ({ d, sIs }) => {
               type="file"
               name="attached_file"
               onChange={handleFileChange}
-              className="mt-2 border w-[300px] max-h-[200px] p-2"
+              className="mt-2 border w-[300px] text-gray-600 dark:text-gray-300 max-h-[200px] p-2"
             />
           </div>
         </div>

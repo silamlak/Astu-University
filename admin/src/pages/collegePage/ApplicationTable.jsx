@@ -7,11 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { addApplication } from "../../api/features/applicationList";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading";
-import DataTable from "react-data-table-component";
+import DataTable, { createTheme } from "react-data-table-component";
+
+import './st.css'
 
 const ApplicationTable = () => {
   const dispatch = useDispatch();
   const apps = useSelector((state) => state.application.applications);
+  const theme = useSelector((state) => state.theme.theme);
   const [applicationDetail, setApplicationDetail] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [filterText, setFilterText] = useState("");
@@ -19,14 +22,58 @@ const ApplicationTable = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(`${API}/college/application`);
-            dispatch(addApplication(response.data));
-
+      dispatch(addApplication(response.data));
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw new Error("Failed to fetch data");
     }
   };
+
+  // createTheme("solarized", {
+  //   text: {
+  //     primary: "#268bd2",
+  //     secondary: "#2aa198",
+  //   },
+  //   background: {
+  //     default: "#002b36",
+  //   },
+  //   context: {
+  //     background: "#cb4b16",
+  //     text: "#FFFFFF",
+  //   },
+  //   divider: {
+  //     default: "#073642",
+  //   },
+  //   action: {
+  //     button: "rgba(0,0,0,.54)",
+  //     hover: "rgba(0,0,0,.08)",
+  //     disabled: "rgba(0,0,0,.12)",
+  //   },
+  // });
+
+  createTheme("dark", {
+    text: {
+      primary: "#e0e0e0",
+      secondary: "#b0b0b0",
+    },
+    background: {
+      default: "#111827",
+    },
+    context: {
+      background: "#f9fafb",
+      text: "#e0e0e0",
+    },
+    divider: {
+      default: "#444444",
+    },
+    action: {
+      button: "#ffffff",
+      hover: "#030712",
+      disabled: "#777777",
+    },
+  });
 
   const { isLoading, isSuccess, isError } = useQuery({
     queryKey: ["applications"],
@@ -36,11 +83,11 @@ const ApplicationTable = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case "approved":
-        return "bg-green-100 text-green-800";
+        return "bg-green-100 text-green-800 dark:bg-green-600 dark:text-green-100";
       case "rejected":
-        return "bg-red-100 text-red-800";
+        return "bg-red-100 text-red-800 dark:bg-red-600 dark:text-red-100";
       case "pending":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-600 dark:text-yellow-100";
       default:
         return "";
     }
@@ -98,7 +145,7 @@ const ApplicationTable = () => {
       name: "Details",
       cell: (row) => (
         <FaInfoCircle
-          className="text-blue-500 cursor-pointer"
+          className="text-blue-500 cursor-pointer dark:text-blue-300 hover:text-blue-700 dark:hover:text-blue-400"
           onClick={() => applicationDetailView(row._id)}
         />
       ),
@@ -139,7 +186,7 @@ const ApplicationTable = () => {
           placeholder="Filter by name, department, or status..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
-          className="p-2 border border-gray-300 rounded dark:border-gray-700 dark:bg-gray-800 dark:text-white w-full"
+          className="p-2 border border-gray-300 dark:border-gray-700 rounded dark:bg-gray-800 dark:text-white w-full"
         />
       </div>
       <DataTable
@@ -148,8 +195,9 @@ const ApplicationTable = () => {
         pagination
         highlightOnHover
         responsive
-        striped
+        theme={theme === 'dark' ? 'dark': 'solarized'}
         noDataComponent="No data available"
+        className="dark:text-gray-100"
       />
     </div>
   );

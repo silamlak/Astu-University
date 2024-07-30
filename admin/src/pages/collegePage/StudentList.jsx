@@ -6,17 +6,18 @@ import ApplicationDetail from "../../components/college/ApplicationDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading";
-import DataTable from "react-data-table-component";
+import DataTable, { createTheme } from "react-data-table-component";
 import { addStudent } from "../../api/features/studentList";
 import StudentDetail from "../../components/college/StudentDetail";
 
 const StudentList = () => {
   const dispatch = useDispatch();
+    const theme = useSelector((state) => state.theme.theme);
   const student = useSelector((state) => state.student.student);
   const [applicationDetail, setApplicationDetail] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [filterText, setFilterText] = useState("");
-  console.log(student)
+  // console.log(student)
 
   const fetchData = async () => {
     try {
@@ -36,6 +37,28 @@ const StudentList = () => {
     queryFn: fetchData,
   });
 
+    createTheme("dark", {
+      text: {
+        primary: "#e0e0e0",
+        secondary: "#b0b0b0",
+      },
+      background: {
+        default: "#111827",
+      },
+      context: {
+        background: "#f9fafb",
+        text: "#e0e0e0",
+      },
+      divider: {
+        default: "#444444",
+      },
+      action: {
+        button: "#ffffff",
+        hover: "#030712",
+        disabled: "#777777",
+      },
+    });
+
   const getStatusColor = (status) => {
     switch (status) {
       case "learning":
@@ -51,8 +74,8 @@ const StudentList = () => {
 
   const applicationDetailView = async (id) => {
     try {
-        console.log(id)
       const res = await axios.get(`${API}/college/student/${id}`);
+      console.log(res.data)
       setApplicationDetail(res.data);
       setIsOpen(true);
     } catch (error) {
@@ -163,7 +186,7 @@ const StudentList = () => {
         pagination
         highlightOnHover
         responsive
-        striped
+        theme={theme === "dark" ? "dark" : "solarized"}
         noDataComponent="No data available"
       />
     </div>

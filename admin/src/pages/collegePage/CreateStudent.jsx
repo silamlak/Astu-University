@@ -16,7 +16,9 @@ const CreateStudent = () => {
     email: "",
     password: "",
     applyied_id: "",
-    duration_year: "1",
+    from: "",
+    to: "",
+    file: null,
   });
 
   // Fetch usernames
@@ -29,23 +31,49 @@ const CreateStudent = () => {
       throw new Error("Failed to fetch usernames");
     }
   };
-  console.log(form)
 
   const { data: usernames, isLoading: isUsernamesLoading } = useQuery({
-    queryKey: ['userlist'],
-    queryFn: fetchUsernames
-});
+    queryKey: ["userlist"],
+    queryFn: fetchUsernames,
+  });
 
   const setChanges = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value, type, files } = e.target;
+    if (type === "file") {
+      setForm({
+        ...form,
+        [name]: files[0],
+      });
+    } else {
+      setForm({
+        ...form,
+        [name]: value,
+      });
+    }
   };
 
   const loginFunc = async (form) => {
     try {
-      const response = await axios.post(`${API}/college/add/student`, form);
+      // Create a FormData object to handle file uploads
+      const formData = new FormData();
+      formData.append("email", form.email);
+      formData.append("password", form.password);
+      formData.append("applyied_id", form.applyied_id);
+      formData.append("from", form.from);
+      formData.append("to", form.to);
+      if (form.file) {
+        formData.append("file", form.file);
+      }
+
+      const response = await axios.post(
+        `${API}/college/add/student`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       console.log(error);
@@ -57,7 +85,7 @@ const CreateStudent = () => {
     mutationFn: loginFunc,
     onSuccess: (data) => {
       toast.success(data.message);
-      navigate("/application/list", { replace: true });
+      navigate("/students", { replace: true });
     },
   });
 
@@ -74,6 +102,9 @@ const CreateStudent = () => {
 
     mutate(form);
   };
+
+  // Get today's date in YYYY-MM-DD format
+  const today = new Date().toISOString().split("T")[0];
 
   return (
     <div className="font-bb min-h-screen flex gap-12 items-center justify-center p-4 bg-white dark:bg-gray-900 transition-colors">
@@ -157,26 +188,59 @@ const CreateStudent = () => {
           </div>
           <div className="mb-6">
             <label
-              htmlFor="year"
+              htmlFor="from"
               className="block text-gray-700 dark:text-gray-300 transition-colors"
             >
-              Duration-Year
+              From
             </label>
             <div className="flex items-center dark:bg-gray-700 border rounded-lg dark:border-gray-700 transition-colors">
-              <select
-                name="duration_year"
-                id="year"
-                value={form.duration_year}
+              <input
+                type="date"
+                name="from"
+                id="from"
+                value={form.from}
                 onChange={setChanges}
+                min={today} // Ensure date cannot be before today
                 className="w-full rounded-lg px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
                 required
-              >
-                {[1, 2, 3, 4, 5, 6].map((year) => (
-                  <option key={year} value={year}>
-                    Year {year}
-                  </option>
-                ))}
-              </select>
+              />
+            </div>
+          </div>
+          <div className="mb-6">
+            <label
+              htmlFor="to"
+              className="block text-gray-700 dark:text-gray-300 transition-colors"
+            >
+              To
+            </label>
+            <div className="flex items-center dark:bg-gray-700 border rounded-lg dark:border-gray-700 transition-colors">
+              <input
+                type="date"
+                name="to"
+                id="to"
+                value={form.to}
+                onChange={setChanges}
+                min={today} // Ensure date cannot be before today
+                className="w-full rounded-lg px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
+                required
+              />
+            </div>
+          </div>
+          <div className="mb-6">
+            <label
+              htmlFor="file"
+              className="block text-gray-700 dark:text-gray-300 transition-colors"
+            >
+              File Upload
+            </label>
+            <div className="flex items-center dark:bg-gray-700 border rounded-lg dark:border-gray-700 transition-colors">
+              <input
+                type="file"
+                name="file"
+                id="file"
+                onChange={setChanges}
+                className="w-full rounded-lg px-1 dark:bg-gray-700 dark:text-gray-200 py-2 border-none outline-none transition-colors"
+              />
             </div>
           </div>
           <button

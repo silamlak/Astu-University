@@ -30,7 +30,7 @@ const uploadPromise = util.promisify(upload);
 
 export const applyTransfer = async (req, res, next) => {
   try {
-    // Use promisified upload
+    console.log(req.body)
     await uploadPromise(req, res);
 
     const {
@@ -54,7 +54,7 @@ console.log(req.body)
       department,
       phone_no,
       application_type,
-      level_of_application,
+        level_of_application,
       university_name,
       university_location,
       attached_file,

@@ -13,8 +13,8 @@ const Navbar = () => {
 
   return (
     <nav className="w-full bg-slate-50 dark:bg-gray-900 shadow-md">
-      <div className="max-w-[1600px] mx-auto">
-        <div className="flex mx-auto justify-between w-5/6">
+      <div className="max-w-[1600px] px-4 mx-auto">
+        <div className="flex mx-auto justify-between">
           {/* Primary menu and logo */}
           <div className="flex items-center gap-16 my-2">
             {/* logo */}
@@ -28,18 +28,18 @@ const Navbar = () => {
             </div>
             {/* primary */}
             <div className="hidden lg:flex gap-8">
-              <a
-                href="#"
+              <Link
+                to="/remaining-data"
                 className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 Remaining Year
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/check-in"
                 className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
-                Notification
-              </a>
+                Check-In
+              </Link>
             </div>
           </div>
           {/* secondary */}
@@ -50,18 +50,10 @@ const Navbar = () => {
               </div>
               <button
                 onClick={() => dispatch(logout())}
-                className="hidden lg:flex items-center gap-2 shadow-md"
+                className="hidden bg-slate-50 dark:bg-gray-900 text-gray-700 dark:text-gray-100 lg:flex items-center shadow-md"
               >
                 Logout
               </button>
-              <div>
-                <Link
-                  to="check-in"
-                  className="rounded-full shadow-xl border-solid border-2 border-gray-300 dark:border-gray-600 py-2 px-4 hover:bg-blue-700 hover:text-gray-100 dark:hover:bg-blue-700 dark:hover:text-slate-50 transition duration-75"
-                >
-                  Check In
-                </Link>
-              </div>
             </div>
             {/* Mobile navigation toggle */}
             <div className="lg:hidden flex items-center  bg-slate-50 dark:bg-gray-900">
@@ -83,18 +75,18 @@ const Navbar = () => {
       >
         <div className="px-8">
           <div className="flex flex-col gap-8 font-bold tracking-wider">
-            <a
-              href="#"
+            <Link
+              to="/remaining-data"
               className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               Remaining Year
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/check-in"
               className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
-              Notification
-            </a>
+              Check-In
+            </Link>
             <div className="flex gap-2 items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
               <Switcher />
             </div>

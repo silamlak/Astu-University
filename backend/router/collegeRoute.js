@@ -3,10 +3,17 @@ import {
   addCollegeOfficer,
   addDepartment,
   addDepartmentOfficer,
+  allDepartment,
+  allDepartmentOfficer,
   applicationDetail,
   applicationList,
   applicationStatus,
+  checkinFileStatus,
   createStudent,
+  DepartmentDelete,
+  DepartmentOfficerDelete,
+  DepartmentOfficerUpdate,
+  DepartmentUpdate,
   fetchapprovedUser,
   getUser,
   logout,
@@ -14,6 +21,8 @@ import {
   signin,
   StudentDetail,
   studentList,
+  studentRenewal,
+  studentStatus,
   updateUser,
 } from "../controllers/collegeController.js";
 const router = express.Router();
@@ -33,5 +42,17 @@ router.get("/application", applicationList);
 router.get("/student", studentList);
 router.post("/add/student", createStudent);
 router.get("/list/student", fetchapprovedUser);
+router.put("/student/renewal", studentRenewal);
+router.put("/student/checkin/status", checkinFileStatus);
+router.put("/student/status", studentStatus);
+
+router.get("/departmet/officer", allDepartmentOfficer);
+router.put("/departmet/officer/update/:id", DepartmentOfficerUpdate);
+router.delete("/departmet/officer/delete/:id", DepartmentOfficerDelete);
+
+router.get("/departmet", allDepartment);
+router.put("/departmet/update/:id", DepartmentUpdate);
+router.delete("/departmet/delete/:id", DepartmentDelete);
+
 
 export default router;

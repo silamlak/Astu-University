@@ -84,70 +84,75 @@ const ApplicationListDetail = ({ d, sIs }) => {
         <button onClick={() => sIs(false)} className="">
           <AiOutlineClose className="absolute top-5 right-5 p-1 font-extrabold bg-white text-2xl rounded-full hover:bg-slate-400 transition-all duration-100" />
         </button>
-        <h1 className="text-2xl font-bold mb-6 sticky top-0 z-50 w-full h-[40px] bg-white dark:bg-gray-800 p-4">
+        <h1 className="text-2xl font-bold mb-6 sticky top-0 z-50 w-full text-gray-600 dark:text-gray-300 h-[40px] bg-white dark:bg-gray-800 p-4">
           Application Details
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6 p-6 max-h-[60vh] overflow-y-auto">
           <div>
-            <p className="text-gray-600 dark:text-gray-300">First Name</p>
-            <p className="text-lg text-gray-800 dark:text-gray-100">
+            <p className="text-gray-600 dark:text-gray-100">First Name</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
               {d.first_name}
             </p>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">Last Name</p>
-            <p className="text-lg text-gray-800 dark:text-gray-100">
+            <p className="text-gray-600 dark:text-gray-100">Last Name</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
               {d.last_name}
             </p>
           </div>
 
           <div>
-            <p className="text-gray-600 dark:text-gray-300">Email</p>
-            <p className="text-lg text-gray-800 dark:text-gray-100">
+            <p className="text-gray-600 dark:text-gray-100">Email</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
               {d.email}
             </p>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">Phone Number</p>
-            <p className="text-lg text-gray-800 dark:text-gray-100">
+            <p className="text-gray-600 dark:text-gray-100">Phone Number</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
               {d.phone_no}
             </p>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">Department</p>
-            <p className="text-lg text-gray-800 dark:text-gray-100">
+            <p className="text-gray-600 dark:text-gray-100">Department</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
               {d.department}
             </p>
           </div>
           <div>
             <p className="text-gray-600 dark:text-gray-300">Attached File</p>
-            <button onClick={() => viewFile(d.attached_file)}>
-              <p className="text-lg text-blue-500">View File</p>
+            <button
+              className=" dark:bg-gray-800 "
+              onClick={() => viewFile(d.attached_file)}
+            >
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                View File
+              </p>
             </button>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className="text-gray-600 dark:text-gray-100">
               Department Status
             </p>
-            <p className={`text-lg ${getStatusColor(d.department_status)}`}>
+            <p className={`text-sm ${getStatusColor(d.department_status)}`}>
               {d.department_status}
             </p>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">Applied At</p>
-            <p className="text-lg text-gray-800 dark:text-gray-100">
+            <p className="text-gray-600 dark:text-gray-100">Applied At</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
               {new Date(d.createdAt).toLocaleString()}
             </p>
           </div>
           <div>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className="text-gray-600 dark:text-gray-100">
               Minute before Approve/Reject
             </p>
             <input
               type="file"
               name="attached_file"
               onChange={handleFileChange}
-              className="mt-2 border w-[300px] max-h-[200px] p-2"
+              className="mt-2 border w-[300px] text-gray-600 dark:text-gray-300 max-h-[200px] p-2"
             />
           </div>
         </div>

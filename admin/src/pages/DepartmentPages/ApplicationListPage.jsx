@@ -7,12 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addApplication } from "../../api/features/applicationList";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading";
-import DataTable from "react-data-table-component";
+import DataTable, { createTheme } from "react-data-table-component";
 
 const ApplicationListPage = () => {
   const dispatch = useDispatch();
   const apps = useSelector((state) => state.application.applications);
   const auth = useSelector((state) => state.auth.user);
+  const theme = useSelector((state) => state.theme.theme);
   const [applicationDetail, setApplicationDetail] = useState();
   const [isopen, setIsOpen] = useState(false);
   const [filterText, setFilterText] = useState("");
@@ -34,6 +35,7 @@ const ApplicationListPage = () => {
           }
         );
       }
+      console.log(response.data)
       return response.data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -77,6 +79,28 @@ const ApplicationListPage = () => {
         return "";
     }
   };
+
+    createTheme("dark", {
+      text: {
+        primary: "#e0e0e0",
+        secondary: "#b0b0b0",
+      },
+      background: {
+        default: "#111827",
+      },
+      context: {
+        background: "#f9fafb",
+        text: "#e0e0e0",
+      },
+      divider: {
+        default: "#444444",
+      },
+      action: {
+        button: "#ffffff",
+        hover: "#030712",
+        disabled: "#777777",
+      },
+    });
 
   const applicationDetailView = async (id) => {
     try {
@@ -166,14 +190,16 @@ const ApplicationListPage = () => {
   return (
     <div className="container mx-auto mt-8 px-4 py-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
       {isopen && <ApplicationDetail d={applicationDetail} sIs={setIsOpen} />}
-      <div className="text-center text-2xl font-semibold">Application List</div>
+      <div className="text-center text-2xl font-semibold text-gray-600 dark:text-gray-300">
+        Application List
+      </div>
       <div className="mb-4">
         <input
           type="text"
           placeholder="Filter by name, department, phone number, or status"
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
-          className="w-[300px] p-2 border rounded-md focus:outline-blue-300"
+          className="w-[300px] p-2 border-gray-300 dark:border-gray-700 rounded dark:bg-gray-800 dark:text-white focus:outline-blue-300"
         />
       </div>
       <DataTable
@@ -182,7 +208,7 @@ const ApplicationListPage = () => {
         pagination
         highlightOnHover
         pointerOnHover
-        striped
+        theme={theme === "dark" ? "dark" : "solarized"}
         responsive
       />
     </div>

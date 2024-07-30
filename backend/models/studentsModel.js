@@ -13,7 +13,7 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  duration_year: {
+  duration_id: {
     type: String,
     required: true,
   },
@@ -24,6 +24,12 @@ const studentSchema = new mongoose.Schema({
   checkin_file: {
     type: Array,
     default: []
+  },
+  file: {
+    type: String,
+  },
+  finished_file: {
+    type: String,
   }
 
 } , {timestamps: true});
