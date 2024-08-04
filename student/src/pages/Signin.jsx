@@ -7,14 +7,15 @@ import { API_STUDENT } from "../Services/utility";
 import Loading from "../components/Loading";
 import Switcher from "../components/Switcher";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 
 const Signin = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-const navigate = useNavigate()
+  const [err, setErr] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const loginFun = async (form) => {
@@ -22,7 +23,8 @@ const navigate = useNavigate()
       const res = await axios.post(`${API_STUDENT}/student/signin`, form);
       return res.data;
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      throw new Error("Login failed. Please try again.");
     }
   };
 
@@ -40,15 +42,28 @@ const navigate = useNavigate()
       setForm({
         email: "",
         password: "",
-      })
-      navigate("/", {replace: true})
+      });
+      navigate("/", { replace: true });
+    },
+    onError: (error) => {
+      setErr(error.message);
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    mutate();
-  }
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@aastu\.edu\.et$/;
+    if (!form.email) {
+      setErr("Email is required");
+    } else if (!emailRegex.test(form.email)) {
+      setErr("Email must be in the format 'example@aastu.edu.et'");
+    } else if (!form.password) {
+      setErr("Password is required");
+    } else {
+      setErr("");
+      mutate();
+    }
+  };
 
   return (
     <div>
@@ -66,10 +81,7 @@ const navigate = useNavigate()
               <h1 className="text-xl w-[500px] max-md:max-w-[300px] font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
-              <form
-                className="space-y-4 md:space-y-6"
-                onSubmit={handleSubmit}
-              >
+              <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label
                     htmlFor="email"
@@ -85,8 +97,11 @@ const navigate = useNavigate()
                     onChange={changeState}
                     className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@aastu.edu.et"
-                    required
+                    // required
                   />
+                  {err.includes("Email") && (
+                    <p className="text-red-500">{err}</p>
+                  )}
                 </div>
                 <div>
                   <label
@@ -103,8 +118,11 @@ const navigate = useNavigate()
                     onChange={changeState}
                     value={form.password}
                     className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
+                    // required
                   />
+                  {err.includes("Password") && (
+                    <p className="text-red-500">{err}</p>
+                  )}
                 </div>
                 <button
                   type="submit"
