@@ -24,6 +24,9 @@ import {
   studentRenewal,
   studentStatus,
   updateUser,
+  addToArchive,
+  getArchive,
+  getArchiveDetail,
 } from "../controllers/collegeController.js";
 const router = express.Router();
 
@@ -53,6 +56,10 @@ router.delete("/departmet/officer/delete/:id", DepartmentOfficerDelete);
 router.get("/departmet", allDepartment);
 router.put("/departmet/update/:id", DepartmentUpdate);
 router.delete("/departmet/delete/:id", DepartmentDelete);
+
+router.post("/archive/add", addToArchive);
+router.get("/archive", getArchive);
+router.get("/archive/:id", getArchiveDetail);
 
 
 export default router;

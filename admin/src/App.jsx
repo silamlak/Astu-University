@@ -15,6 +15,8 @@ import EditProfile from "./pages/EditProfile";
 import { useSelector } from "react-redux";
 import CollegeDashboard from "./pages/collegePage/CollegeDashboard";
 import StudentList from "./pages/collegePage/StudentList";
+import ArchivedStudents from "./pages/collegePage/ArchivedStudents";
+import ArchivedStudentDetail from "./pages/collegePage/ArchivedStudentDetail";
 
 const App = () => {
   const auth = useSelector((state) => state.auth.user);
@@ -103,6 +105,24 @@ const App = () => {
           element: (
             <ProtectedRoute
               element={StudentList}
+              allowedRoles={["College"]}
+            />
+          ),
+        },
+        {
+          path: "/archived",
+          element: (
+            <ProtectedRoute
+              element={ArchivedStudents}
+              allowedRoles={["College"]}
+            />
+          ),
+        },
+        {
+          path: "/archived/detail/:id",
+          element: (
+            <ProtectedRoute
+              element={ArchivedStudentDetail}
               allowedRoles={["College"]}
             />
           ),

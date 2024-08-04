@@ -10,6 +10,7 @@ import applicationModel from "../models/applicantFormModel.js";
 import studentsModel from "../models/studentsModel.js";
 import durationModel from "../models/durationModel.js";
 import CheckInFileModel from "../models/CheckInFileModel.js";
+import archiveModel from "../models/archiveModel.js";
 
 // Multer storage setup
 const storage = multer.diskStorage({
@@ -104,6 +105,61 @@ export const addDepartment = async (req, res, next) => {
     const newDepartment = new departmentModel(req.body);
     await newDepartment.save();
     res.status(201).json({ message: "new department added" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addToArchive = async (req, res, next) => {
+  try {
+    const id = req.body.student_id
+    await studentsModel.findByIdAndUpdate(id, {$set: {archive: 'true'}}, {new: true})
+    const newArchive = new archiveModel(req.body);
+    await newArchive.save();
+    res.status(201).json({ message: "new Archive added" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getArchive = async (req, res, next) => {
+  try {
+    const archives = await archiveModel.find();
+    // Fetch student data for each archive
+    const studentPromises = archives.map(
+      (archive) => studentsModel.findById(archive.student_id) // Replace with your student data fetching logic
+    );
+    const applicantPromises = archives.map(
+      (archive) => applicationModel.findById(archive.applied_id) // Replace with your student data fetching logic
+    );
+    const students = await Promise.all(studentPromises);
+    const applicant = await Promise.all(applicantPromises);
+    const archivesWithStudents = archives.map((archive, index) => ({
+      ...archive.toObject(),
+      student: students[index],
+      applicant: applicant[index],
+    }));
+
+    res.status(201).json(archivesWithStudents);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getArchiveDetail = async (req, res, next) => {
+  const {id} = req.params
+  try {
+    const archives = await archiveModel.findById(id);
+    const st_id = archives.student_id;
+    const ap_id = archives.applied_id;
+    const file_id = archives.file_id;
+    const duration_id = archives.duration_id;
+    const student = await studentsModel.findById(st_id);
+    const duration = await durationModel.findById(duration_id);
+    const applicant = await applicationModel.findById(ap_id);
+    const files = await CheckInFileModel.find({ _id: { $in: file_id } });
+
+    res.status(201).json({ archives, student, duration, applicant,files });
   } catch (error) {
     next(error);
   }
@@ -502,8 +558,6 @@ export const DepartmentOfficerDelete = async (req, res, next) => {
     next(error)
   }
 }
-
-
 
 export const allDepartment = async (req, res, next) => {
   try {

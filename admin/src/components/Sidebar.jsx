@@ -6,6 +6,7 @@ import { IoIosCreate } from "react-icons/io";
 import { FiEdit } from "react-icons/fi";
 import { PiStudentDuotone } from "react-icons/pi";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { FaRegFileArchive } from "react-icons/fa";
 
 import Logo from "../assets/images/algo.png";
 import { useState } from "react";
@@ -48,6 +49,11 @@ const Sidebar = () => {
       to: `/students`,
       label: "Student List",
       icon: <PiStudentDuotone />,
+    },
+    {
+      to: `/archived`,
+      label: "Archived",
+      icon: <FaRegFileArchive />,
     },
   ];
   const sidebarLinksDepartment = [

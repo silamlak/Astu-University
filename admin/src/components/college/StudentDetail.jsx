@@ -140,6 +140,22 @@ const StudentDetail = ({ d, sIs }) => {
     }
   };
 
+  const addToArchive = async (d) => {
+    try {
+      // console.log(d)
+      const data = {
+        student_id: d._id,
+        applied_id: d.applyied_id,
+        file_id: d.checkin_file,
+        duration_id: d.duration_id,
+      };
+      const res = await axios.post(`${API}/college/archive/add`, data);
+      sIs(false);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const getStatusColor = (status) => {
     switch (status) {
       case "learning":
@@ -280,7 +296,16 @@ const StudentDetail = ({ d, sIs }) => {
               )}
             </div>
 
-            {d.status === 'learning' && (
+            {d?.archive === "false" && (
+              <button
+                onClick={() => addToArchive(d)}
+                className="bg-slate-200 hover:bg-slate-300 dark:bg-slate-900 dark:hover:bg-slate-800 block text-white dark:text-slate-100 font-bold py-1 px-4 text-sm mt-2 rounded"
+              >
+                Add To Archive
+              </button>
+            )}
+
+            {d.status === "learning" && (
               <div className="flex gap-2 p-4">
                 <div className="relative">
                   <label
