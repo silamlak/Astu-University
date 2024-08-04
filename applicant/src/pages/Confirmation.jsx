@@ -17,10 +17,13 @@ const Confirmation = () => {
     <div className="w-full flex flex-col-reverse gap-10 justify-center items-center p-20">
       <img src={Confirm} className="w-[250px] h-[250px]" />
       <div className="p-4 max-w-4xl bg-green-100 border flex flex-col items-center justify-center border-green-400 text-green-700 rounded">
-        <p>Hello Mr. {state?.first_name} This is your confirmation code {state?.confirmation_code}{". "} 
-           Please keep this code safe as it will be required for any further
+        <p>
+          Hello {state.gender === 'Male'? 'Mr.': 'Ms.'}{' '}{state?.first_name} This is your confirmation code{" "}
+          {state?.confirmation_code}
+          {". "}
+          Please keep this code safe as it will be required for any further
           correspondence or verification related to your submission. Best
-          regards, AASTU.
+          regards, CNAS.
         </p>
       </div>
     </div>

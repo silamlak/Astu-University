@@ -48,7 +48,7 @@ const AddDepartmentOffice = () => {
 
   const { isPending: isAdding, mutate: addOfficer } = useMutation({
     mutationFn: async (formData) => {
-      await axios.post(`${API}/college/add/college_officer`, formData);
+      await axios.post(`${API}/college/add/department_officer`, formData);
     },
     onSuccess: () => {
       toast.success("Department Officer added successfully");
@@ -105,18 +105,18 @@ const AddDepartmentOffice = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editMode) {
       updateOfficer({ id: editId, formData: form });
-    } else {
+  };
+  const handleadd = async (e) => {
+    e.preventDefault();
       addOfficer(form);
-    }
   };
 
   const handleEdit = (officer) => {
     setForm({
       name: officer.name,
       email: officer.email,
-      password: "",
+      password: officer.password,
       phone_no: officer.phone_no,
       department: officer.department,
     });
@@ -352,7 +352,7 @@ return (
           <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
             {editMode ? "Update Department Officer" : "Add Department Officer"}
           </h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleadd}>
             <div className="mb-4">
               <label
                 htmlFor="name"

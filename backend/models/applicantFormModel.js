@@ -2,11 +2,23 @@ import mongoose from "mongoose";
 
 const applicantForm = mongoose.Schema(
   {
+    title: {
+      type: String,
+      required: true,
+    },
     first_name: {
       type: String,
       required: true,
     },
+    middle_name: {
+      type: String,
+      required: true,
+    },
     last_name: {
+      type: String,
+      required: true,
+    },
+    gender: {
       type: String,
       required: true,
     },

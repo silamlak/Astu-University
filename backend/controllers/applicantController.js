@@ -35,6 +35,9 @@ export const applyTransfer = async (req, res, next) => {
 
     const {
       first_name,
+      middle_name,
+      title,
+      gender,
       last_name,
       email,
       department,
@@ -49,12 +52,15 @@ export const applyTransfer = async (req, res, next) => {
 console.log(req.body)
     const newApplicantForm = new applicantFormModel({
       first_name,
+      middle_name,
+      title,
+      gender,
       last_name,
       email,
       department,
       phone_no,
       application_type,
-        level_of_application,
+      level_of_application,
       university_name,
       university_location,
       attached_file,

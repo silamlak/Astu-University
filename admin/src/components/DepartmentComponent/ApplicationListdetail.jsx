@@ -89,15 +89,34 @@ const ApplicationListDetail = ({ d, sIs }) => {
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6 p-6 max-h-[60vh] overflow-y-auto">
           <div>
+            <p className="text-gray-600 dark:text-gray-100">Title</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              {d?.title}
+            </p>
+          </div>
+          <div>
             <p className="text-gray-600 dark:text-gray-100">First Name</p>
             <p className="text-gray-600 dark:text-gray-300 text-sm">
               {d.first_name}
             </p>
           </div>
           <div>
+            <p className="text-gray-600 dark:text-gray-100">Middle Name</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              {d.middle_name}
+            </p>
+          </div>
+          <div>
             <p className="text-gray-600 dark:text-gray-100">Last Name</p>
             <p className="text-gray-600 dark:text-gray-300 text-sm">
               {d.last_name}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-gray-600 dark:text-gray-100">Gender</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              {d.gender}
             </p>
           </div>
 

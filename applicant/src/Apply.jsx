@@ -13,6 +13,7 @@ import {
   FaListAlt,
   FaGraduationCap,
 } from "react-icons/fa";
+import { MdOutlineTitle } from "react-icons/md";
 import Form from "./assets/image/form.svg";
 import Curve from "./assets/image/curve.png";
 import Loading from "./component/Loading";
@@ -22,8 +23,11 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [lists, setLists] = useState()
   const [form, setForm] = useState({
+    title: "",
     first_name: "",
+    middle_name: "",
     last_name: "",
+    gender: '',
     email: "",
     department: "",
     phone_no: "",
@@ -50,11 +54,20 @@ const Dashboard = () => {
     const errors = {};
     const emailRegex = /^[a-zA-Z0-9._%+-]+@aastu\.edu\.et$/;
 
+    if (!form.title.trim()) {
+      errors.title = "Title is required";
+    }
     if (!form.first_name.trim()) {
       errors.first_name = "First Name is required";
     }
+    if (!form.middle_name.trim()) {
+      errors.middle_name = "Middle Name is required";
+    }
     if (!form.last_name.trim()) {
       errors.last_name = "Last Name is required";
+    }
+    if (!form.gender) {
+      errors.gender = "Gender is required";
     }
     if (!form.email) {
       errors.email = "Email is required";
@@ -124,8 +137,11 @@ const Dashboard = () => {
         }
       );
       setForm({
+        title: "",
         first_name: "",
+        middle_name: "",
         last_name: "",
+        gender: "",
         email: "",
         department: "",
         phone_no: "",
@@ -169,6 +185,28 @@ const Dashboard = () => {
 
             <div className="grid grid-cols-3 gap-4 max-lg:grid-cols-2 max-md:grid-cols-1">
               <div className="mb-4 relative">
+                <label className="block text-gray-700">Title</label>
+                <div className="flex flex-col">
+                  <div className="flex items-center">
+                    <span className="absolute pl-3 text-gray-400">
+                      <MdOutlineTitle />
+                    </span>
+                    <input
+                      type="text"
+                      name="title"
+                      value={form.title}
+                      onChange={handleChange}
+                      placeholder="Engineer"
+                      className="w-full pl-10 p-2 border dark:text-slate-950 border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                    />
+                  </div>
+                  {errors.title && (
+                    <p className="text-red-500 text-sm">{errors.title}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="mb-4 relative">
                 <label className="block text-gray-700">First Name</label>
                 <div className="flex flex-col">
                   <div className="flex items-center">
@@ -190,6 +228,27 @@ const Dashboard = () => {
               </div>
 
               <div className="mb-4 relative">
+                <label className="block text-gray-700">Middle Name</label>
+                <div className="flex flex-col">
+                  <div className="flex items-center">
+                    <span className="absolute pl-3 text-gray-400">
+                      <FaUser />
+                    </span>
+                    <input
+                      type="text"
+                      name="middle_name"
+                      value={form.middle_name}
+                      onChange={handleChange}
+                      className="w-full pl-10 p-2 border dark:text-slate-950 border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                    />
+                  </div>
+                  {errors.middle_name && (
+                    <p className="text-red-500 text-sm">{errors.middle_name}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="mb-4 relative">
                 <label className="block text-gray-700">Last Name</label>
                 <div className="flex flex-col">
                   <div className="flex items-center">
@@ -206,6 +265,30 @@ const Dashboard = () => {
                   </div>
                   {errors.last_name && (
                     <p className="text-red-500 text-sm">{errors.last_name}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="mb-4 relative">
+                <label className="block text-gray-700">Gender</label>
+                <div className="flex flex-col">
+                  <div className="flex items-center">
+                    <span className="absolute pl-3 text-gray-400">
+                      <FaUser />
+                    </span>
+                    <select
+                      name="gender"
+                      value={form.gender}
+                      onChange={handleChange}
+                      className="w-full pl-10 dark:text-slate-950 p-2 border border-gray-300 rounded-lg focus:outline-none bg-gray-50 mt-1"
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                  </div>
+                  {errors.gender && (
+                    <p className="text-red-500 text-sm">{errors.gender}</p>
                   )}
                 </div>
               </div>
