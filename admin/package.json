@@ -24,6 +24,7 @@
     "react-router-dom": "^6.24.1",
     "react-spinners": "^0.14.1",
     "react-switch": "^7.0.0",
+    "react-to-print": "^2.15.1",
     "redux-persist": "^6.0.0"
   },
   "devDependencies": {

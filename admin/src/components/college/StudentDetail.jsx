@@ -96,6 +96,7 @@ const StudentDetail = ({ d, sIs }) => {
         <Loading />
       </div>
     );
+    console.log(d)
 
   const handleStatussChange = (e) => {
     const selectedStatus = e.target.value;
@@ -220,7 +221,7 @@ const StudentDetail = ({ d, sIs }) => {
               </p>
             </div>
 
-            <div>
+           {d?.checkin_files?.length !== 0 && <div>
               <p className="text-gray-600 dark:text-gray-100">CheckIn File</p>
               {d.checkin_files?.map((file) => (
                 <div key={file} className="flex gap-4">
@@ -244,9 +245,9 @@ const StudentDetail = ({ d, sIs }) => {
                   )}
                 </div>
               ))}
-            </div>
+            </div>}
 
-            <div>
+            {d.status !== "learning" && <div>
               <p className="text-gray-600 dark:text-gray-100">fINISHED File</p>
               <div className="flex gap-4">
                 <button
@@ -256,7 +257,7 @@ const StudentDetail = ({ d, sIs }) => {
                   View File
                 </button>
               </div>
-            </div>
+            </div>}
 
             <div>
               <p className="text-gray-600 dark:text-gray-100">
@@ -286,7 +287,7 @@ const StudentDetail = ({ d, sIs }) => {
                 </div>
               </div>
 
-              {d.duration?.previousDurations.length < 2 && (
+              {d.duration?.previousDurations.length < 2 && d.status === "learning" && (
                 <button
                   onClick={() => setIsUpdating(true)}
                   className="bg-blue-500 hover:bg-blue-700 block text-white font-bold py-1 px-4 text-sm mt-2 rounded"
@@ -299,7 +300,7 @@ const StudentDetail = ({ d, sIs }) => {
             {d?.archive === "false" && (
               <button
                 onClick={() => addToArchive(d)}
-                className="bg-slate-200 hover:bg-slate-300 dark:bg-slate-900 dark:hover:bg-slate-800 block text-white dark:text-slate-100 font-bold py-1 px-4 text-sm mt-2 rounded"
+                className="bg-blue-500 hover:bg-blue-600 block text-white font-bold py-1 px-4 text-sm mt-2 rounded"
               >
                 Add To Archive
               </button>

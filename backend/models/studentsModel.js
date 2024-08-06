@@ -33,7 +33,8 @@ const studentSchema = new mongoose.Schema(
       type: String,
     },
     archive:{
-      type: String
+      type: String,
+      default: 'false'
     }
   },
   { timestamps: true }

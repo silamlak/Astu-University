@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
     cb(null, "./files"); // Ensure the path is correct
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + file.originalname;
+    const uniqueSuffix = Date.now() + "-" + "checkin.pdf";
     cb(null, uniqueSuffix);
   },
 });
@@ -37,13 +37,13 @@ export const checkinFileUploader = async (req, res, next) => {
   console.log(req.body);
   const id = req.headers["id"];
   const _id = req.headers["_id"];
-  console.log(id, _id)
+  console.log(id, _id);
   try {
     await uploadPromise(req, res);
     const checkIn_file = req.file.filename;
-    console.log(checkIn_file)
+    console.log(checkIn_file);
     const fileChecked = await CheckInFileModel.findByIdAndUpdate(_id, {
-      $set: { checkIn_file, checkIn_status: 'Not-Seen' },
+      $set: { checkIn_file, checkIn_status: "Not-Seen" },
     });
 
     const student = await studentsModel.findByIdAndUpdate(
@@ -58,7 +58,6 @@ export const checkinFileUploader = async (req, res, next) => {
     next(error);
   }
 };
-
 
 export const checkinFilePage = async (req, res, next) => {
   const session = await mongoose.startSession();
@@ -141,23 +140,22 @@ export const checkinFilePage = async (req, res, next) => {
       session
     );
 
-    if(!ifThere){
+    if (!ifThere) {
       // Save each date from intervalDates to CheckInFileModel
       const checkInFileEntries = intervalDates.map((date) => ({
         student_id: id,
         time_to_checkIn: date,
       }));
-  
+
       await CheckInFileModel.insertMany(checkInFileEntries, { session });
     }
 
     // console.log("Interval end dates:", intervalDates);
 
-    
     const findDates = await CheckInFileModel.find({ student_id: id }).session(
       session
     );
-    
+
     // Commit the transaction
     await session.commitTransaction();
     session.endSession();
@@ -193,7 +191,7 @@ const calculateDateDifference = (fromDate, toDate) => {
 export const remainingPage = async (req, res, next) => {
   const session = await mongoose.startSession();
   session.startTransaction();
-  console.log(req.body)
+  console.log(req.body);
 
   try {
     const { id } = req.body;

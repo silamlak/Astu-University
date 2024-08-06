@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { API } from "../../utility";
+import { API, FILEAPI } from "../../utility";
 import { useDispatch, useSelector } from "react-redux";
 import { updateState } from "../../api/features/applicationList";
 import { AiOutlineClose } from "react-icons/ai";
@@ -70,7 +70,7 @@ const ApplicationListDetail = ({ d, sIs }) => {
 
   const viewFile = (file) => {
     window.open(
-      `https://aastu-edu.onrender.com/files/${file}`,
+      `${FILEAPI}/files/${file}`,
       "_blank",
       "noreferrer"
     );

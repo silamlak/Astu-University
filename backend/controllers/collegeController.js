@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
     cb(null, "./files"); // Ensure the path is correct
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + file.originalname;
+    const uniqueSuffix = Date.now() + "-" + 'file.pdf';
     cb(null, uniqueSuffix);
   },
 });
@@ -124,7 +124,7 @@ export const addToArchive = async (req, res, next) => {
 
 export const getArchive = async (req, res, next) => {
   try {
-    const archives = await archiveModel.find();
+    const archives = await archiveModel.find().sort({ createdAt: -1 });
     // Fetch student data for each archive
     const studentPromises = archives.map(
       (archive) => studentsModel.findById(archive.student_id) // Replace with your student data fetching logic
@@ -152,9 +152,9 @@ export const getArchiveDetail = async (req, res, next) => {
     const archives = await archiveModel.findById(id);
     const st_id = archives.student_id;
     const ap_id = archives.applied_id;
-    const file_id = archives.file_id;
     const duration_id = archives.duration_id;
     const student = await studentsModel.findById(st_id);
+    const file_id = student.checkin_file;
     const duration = await durationModel.findById(duration_id);
     const applicant = await applicationModel.findById(ap_id);
     const files = await CheckInFileModel.find({ _id: { $in: file_id } });
@@ -243,7 +243,7 @@ export const createStudent = async (req, res, next) => {
       cb(null, "./files"); // Ensure the path is correct
     },
     filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + "-" + file.originalname;
+      const uniqueSuffix = Date.now() + "-" + 'newstudent.pdf';
       cb(null, uniqueSuffix);
     },
   });
@@ -414,7 +414,7 @@ export const studentRenewal = async (req, res, next) => {
       cb(null, "./files");
     },
     filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + "-" + file.originalname;
+      const uniqueSuffix = Date.now() + "-" + 'renewal.pdf';
       cb(null, uniqueSuffix);
     },
   });
@@ -504,7 +504,7 @@ export const studentStatus = async (req, res, next) => {
         cb(null, "./files");
       },
       filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + "-" + file.originalname;
+        const uniqueSuffix = Date.now() + "-" + 'status.pdf';
         cb(null, uniqueSuffix);
       },
     });

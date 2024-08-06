@@ -66,6 +66,7 @@ const ArchivedStudents = () => {
     queryKey: ["archived"],
     queryFn: fetchData,
   });
+  console.log(data)
 
   // Check if data is an array before filtering
   const filteredData = Array.isArray(data)

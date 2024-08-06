@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     cb(null, "./files"); // Ensure the path is correct
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + file.originalname;
+    const uniqueSuffix = Date.now() + "-" + 'departmentminute.pdf';
     cb(null, uniqueSuffix);
   },
 });
