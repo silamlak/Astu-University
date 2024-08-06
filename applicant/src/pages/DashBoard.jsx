@@ -11,8 +11,8 @@ const DashBoard = () => {
     fade: true,
     infinite: true,
     autoplay: true,
-    autoplaySpeed: 1000,
-    speed: 1000,
+    autoplaySpeed: 2000,
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
