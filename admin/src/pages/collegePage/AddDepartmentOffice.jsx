@@ -10,6 +10,8 @@ import {
 } from "react-icons/ai";
 import Loading from "../../components/Loading";
 import toast from "react-hot-toast";
+import DataTable from "react-data-table-component";
+import { useSelector } from "react-redux";
 
 const fetchDepartments = async () => {
   const response = await axios.get(`${API}/college/departmet`);
@@ -30,6 +32,7 @@ const AddDepartmentOffice = () => {
     phone_no: "",
     department: "",
   });
+    const theme = useSelector((state) => state.theme.theme);
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -143,6 +146,48 @@ const AddDepartmentOffice = () => {
       setEditMode(false);
     };
 
+      const columns = [
+        {
+          name: "Name",
+          selector: (row) => row?.name,
+          sortable: true,
+        },
+        {
+          name: "Email",
+          selector: (row) => row?.email,
+          sortable: true,
+        },
+        {
+          name: "phone_no",
+          selector: (row) => row?.phone_no,
+          sortable: true,
+        },
+        {
+          name: "department",
+          selector: (row) => row?.department,
+          sortable: true,
+        },
+        {
+          name: "Actions",
+          cell: (row) => (
+            <div className="flex gap-4">
+              <button
+                onClick={() => handleEdit(row)}
+                className="text-blue-500 hover:text-blue-700 bg-inherit dark:text-blue-400 dark:hover:text-blue-300"
+              >
+                <AiOutlineEdit />
+              </button>
+              <button
+                onClick={() => handleDelete(row._id)}
+                className="text-red-500 hover:text-red-700 bg-inherit dark:text-red-400 dark:hover:text-red-300"
+              >
+                <AiOutlineDelete />
+              </button>
+            </div>
+          ),
+        },
+      ];
+
   if (isDepartmentsLoading || isOfficersLoading) return <div className="w-full flex justify-center"><Loading /></div>;
 
 return (
@@ -159,61 +204,13 @@ return (
       </button>
     </div>
 
-    <table className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-md">
-      <thead className="bg-gray-200 dark:bg-gray-700">
-        <tr>
-          <th className="py-2 px-4 border-b text-start dark:border-gray-600 text-gray-800 dark:text-gray-100">
-            Name
-          </th>
-          <th className="py-2 px-4 border-b text-start dark:border-gray-600 text-gray-800 dark:text-gray-100">
-            Email
-          </th>
-          <th className="py-2 px-4 border-b text-start dark:border-gray-600 text-gray-800 dark:text-gray-100">
-            Phone Number
-          </th>
-          <th className="py-2 px-4 border-b text-start dark:border-gray-600 text-gray-800 dark:text-gray-100">
-            Department
-          </th>
-          <th className="py-2 px-4 border-b text-start dark:border-gray-600 text-gray-800 dark:text-gray-100">
-            Actions
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {officers.map((officer) => (
-          <tr className="border-b" key={officer._id}>
-            <td className="py-2 px-4 dark:border-gray-600 text-gray-800 dark:text-gray-100">
-              {officer.name}
-            </td>
-            <td className="py-2 px-4 dark:border-gray-600 text-gray-800 dark:text-gray-100">
-              {officer.email}
-            </td>
-            <td className="py-2 px-4 dark:border-gray-600 text-gray-800 dark:text-gray-100">
-              {officer.phone_no}
-            </td>
-            <td className="py-2 px-4 dark:border-gray-600 text-gray-800 dark:text-gray-100">
-              {officer.department}
-            </td>
-            <td className="py-2 px-4 dark:border-gray-600  text-gray-800 dark:text-gray-100">
-              <div className="flex gap-3">
-                <button
-                  onClick={() => handleEdit(officer)}
-                  className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-                >
-                  <AiOutlineEdit />
-                </button>
-                <button
-                  onClick={() => handleDelete(officer._id)}
-                  className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-                >
-                  <AiOutlineDelete />
-                </button>
-              </div>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <DataTable
+      columns={columns}
+      data={officers}
+      pagination
+      highlightOnHover
+      theme={theme === "dark" ? "dark" : "solarized"}
+    />
 
     {/* Add/Update Department Officer Popup */}
     {editMode && (
